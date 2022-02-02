@@ -17,4 +17,4 @@ print(len(config["list_input"]))
 path_output = config['path_output']
 print(path_output)
 
-
+print ("Hello world")
