@@ -1,14 +1,19 @@
 {
-	"list_input": [
+	"collection": [
 		{
-			"path": "O:/Output/JAMA/Tabellen/02_02",
 			"title": "Meteorologie",
-			"filename_output": "Meteorologie.xlsx"
+			"input_path": "O:/Projekte/PyTabsam/Testfaelle-Input/02_02",
+			"output_path": "Meteorologie.xlsx"
 		},
 		{
-			"path": "O:/Output/JAMA/Tabellen/07_02",
+			"title": "Luftqualitaet",
+			"input_path": "O:/Projekte/PyTabsam/Testfaelle-Input/07_03",
+			"output_path": "Luftqualitaet.xlsx"
+		},
+		{
 			"title": "Abfallentsorgung",
-			"filename_output": "Abfallentsorgung.xlsx"
+			"input_path": "O:/Projekte/PyTabsam/Testfaelle-Input/07_02",
+			"output_path": "Abfallentsorgung.xlsx"
 		}
 	],
 	"path_output": "T:/PyTabsam",
