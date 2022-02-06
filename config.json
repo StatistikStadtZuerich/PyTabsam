@@ -3,17 +3,17 @@
 		{
 			"title": "Meteorologie",
 			"input_path": "O:/Projekte/PyTabsam/Testfaelle-Input/02_02",
-			"output_path": "Meteorologie.xlsx"
+			"output_filename": "Meteorologie.xlsx"
 		},
 		{
 			"title": "Luftqualitaet",
 			"input_path": "O:/Projekte/PyTabsam/Testfaelle-Input/07_03",
-			"output_path": "Luftqualitaet.xlsx"
+			"output_filename": "Luftqualitaet.xlsx"
 		},
 		{
 			"title": "Abfallentsorgung",
 			"input_path": "O:/Projekte/PyTabsam/Testfaelle-Input/07_02",
-			"output_path": "Abfallentsorgung.xlsx"
+			"output_filename": "Abfallentsorgung.xlsx"
 		}
 	],
 	"path_output": "T:/PyTabsam",
