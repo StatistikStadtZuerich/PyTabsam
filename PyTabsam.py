@@ -6,6 +6,7 @@ import json
 import pandas as pd
 import os # operating system
 import re # regular expressions
+#import xlwings # Python for Excel see www.xlwings.org / requires: pywintypes / pywin32
 
 # Leere Listen vorbereiten
 data_coll  = pd.DataFrame()
@@ -59,9 +60,9 @@ def create_sampledata():
   
   # EXPLANATION
   list_expl = []
-  elem_list_expl = [1, 1, "T_02.02.0.Erläuterung.xlsm"]
+  elem_list_expl = [1, 1, "T_02.02.0.Erläuterung.xlsm", "O:/Projekte/PyTabsam/Testfaelle-Input/02_02"]
   list_expl.append(elem_list_expl)
-  data_expl = pd.DataFrame(list_expl, columns = ['ID', 'FK_collection', 'filename'])
+  data_expl = pd.DataFrame(list_expl, columns = ['ID', 'FK_collection', 'filename', 'directory'])
 
 # Function read_coll_dir
 # Open each collection path and scan for all files in it. Match names to expl. and sheets.
@@ -88,7 +89,7 @@ def read_coll_dir():
       # The filename matches an explanation      
       if is_expl:
         count_expl += 1
-        elem_list_expl = [count_expl, collection_id, file]
+        elem_list_expl = [count_expl, collection_id, file, collection_path]
         list_expl.append(elem_list_expl)
       # The filename matches a worksheet with data      
       elif is_sheet:
@@ -98,8 +99,14 @@ def read_coll_dir():
       else:
         log("WARNING", "File " + file + " in " + collection_path + " has an invalid filename. It will be ignored.")
 
-    data_expl  = pd.DataFrame(list_expl, columns = ['ID', 'FK_collection', 'filename'])
+    data_expl  = pd.DataFrame(list_expl, columns = ['ID', 'FK_collection', 'filename', 'directory'])
     data_sheet = pd.DataFrame(list_sheet, columns = ['ID', 'FK_collection', 'filename'])
+
+# Function read_xls_expl
+# Read excel that contains the explanation
+def read_xls_expl():
+  pass
+
 
 # Main progam
 def main():
