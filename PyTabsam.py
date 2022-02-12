@@ -6,7 +6,9 @@ import json
 import pandas as pd
 import os # operating system
 import re # regular expressions
-#import xlwings as xw # Python for Excel see www.xlwings.org / requires: pywintypes / pywin32
+from openpyxl import load_workbook
+# @Hansjörg: Diese Seite könnte interessant sein um Inhalte zu kopieren:
+# https://stackoverflow.com/questions/42344041/how-to-copy-worksheet-from-one-workbook-to-another-one-using-openpyxl
 
 # Leere Listen vorbereiten
 data_coll  = pd.DataFrame([],dtype=pd.StringDtype())
@@ -105,10 +107,13 @@ def read_coll_dir():
 # Function read_xls_expl
 # Read excel that contains the explanation
 def read_xls_expl():
-  pass
-  # wb = xw.Book(r'O:\Projekte\PyTabsam\Testfaelle-Input\07_03\T_07.03.0.Erläuterungen.xlsm')
-  # sheet = wb.sheets['Internet']
-  # print(sheet.range('A1').value)
+  # Test to read single cells from one sheet
+  wb = load_workbook(filename = r'O:\Projekte\PyTabsam\Testfaelle-Input\07_03\T_07.03.0.Erläuterungen.xlsm')
+  sheet_ranges = wb['Internet']
+  print(sheet_ranges['A1'].value)
+  print(sheet_ranges['B1'].value)
+  print(sheet_ranges['A2'].value)
+  print(sheet_ranges['B2'].value)
 
 
 # Main progam
