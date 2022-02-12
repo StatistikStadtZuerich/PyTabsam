@@ -6,7 +6,7 @@ import json
 import pandas as pd
 import os # operating system
 import re # regular expressions
-#import xlwings # Python for Excel see www.xlwings.org / requires: pywintypes / pywin32
+#import xlwings as xw # Python for Excel see www.xlwings.org / requires: pywintypes / pywin32
 
 # Leere Listen vorbereiten
 data_coll  = pd.DataFrame([],dtype=pd.StringDtype())
@@ -105,7 +105,10 @@ def read_coll_dir():
 # Function read_xls_expl
 # Read excel that contains the explanation
 def read_xls_expl():
-    pass
+  pass
+  # wb = xw.Book(r'O:\Projekte\PyTabsam\Testfaelle-Input\07_03\T_07.03.0.Erläuterungen.xlsm')
+  # sheet = wb.sheets['Internet']
+  # print(sheet.range('A1').value)
 
 
 # Main progam
@@ -119,6 +122,8 @@ def main():
   # The sample data will overwrite the data gathered by read_collection
   print("Create sample data")
   create_sampledata()
+  
+  read_xls_expl()
   
   print(data_coll)
   print(data_sheet)
