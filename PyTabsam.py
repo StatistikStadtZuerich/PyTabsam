@@ -12,8 +12,9 @@ from openpyxl import load_workbook
 
 # Leere Listen vorbereiten
 data_coll  = pd.DataFrame([],dtype=pd.StringDtype())
-print(data_coll)
+count_sheet = 0
 data_sheet = pd.DataFrame([],dtype=pd.StringDtype())
+count_expl = 0
 data_expl  = pd.DataFrame([],dtype=pd.StringDtype())
 
 # Function tolog
@@ -43,7 +44,7 @@ def read_config():
 # Function create_sampledata
 # Generate sample data
 def create_sampledata():
-  global data_coll, data_sheet, data_expl
+  global data_coll, count_sheet, data_sheet, count_expl, data_expl
   # COLLECTION
   list_coll = []
   elem_list_coll = [1, "Meteorologie", "O:/Projekte/PyTabsam/Testfaelle-Input/02_02", "Meteorologie.xlsx"]
@@ -56,20 +57,22 @@ def create_sampledata():
   
   # SHEET
   list_sheet = []
-  elem_list_sheet = [1, 1, "T_02.02.01.2017.xlsm", "T02.02.01.2017", "T_2.2.1.2017", "Wetterrekorde", "Station Zürich Fluntern", "historisch und 2017", "MeteoSchweiz", 1]
+  elem_list_sheet = [1, 1, "T_02.02.01.2017.xlsm", "O:/Projekte/PyTabsam/Testfaelle-Input/02_02", "T02.02.01.2017", "T_2.2.1.2017", "Wetterrekorde", "Station Zürich Fluntern", "historisch und 2017", "MeteoSchweiz", 1]
   list_sheet.append(elem_list_sheet)
-  data_sheet = pd.DataFrame(list_sheet, columns = ['ID', 'FK_collection', 'filename', 'sheet_name', 'code', 'title', 'subtitle1', 'subtitle2', 'source', 'order'])
+  data_sheet = pd.DataFrame(list_sheet, columns = ['ID', 'FK_collection', 'filename', 'directory', 'sheet_name', 'code', 'title', 'subtitle1', 'subtitle2', 'source', 'order'])
+  count_sheet = 1
   
   # EXPLANATION
   list_expl = []
   elem_list_expl = [1, 1, "T_02.02.0.Erläuterung.xlsm", "O:/Projekte/PyTabsam/Testfaelle-Input/02_02"]
   list_expl.append(elem_list_expl)
   data_expl = pd.DataFrame(list_expl, columns = ['ID', 'FK_collection', 'filename', 'directory'])
+  count_expl = 1
 
 # Function read_coll_dir
 # Open each collection path and scan for all files in it. Match names to expl. and sheets.
 def read_coll_dir():
-  global data_coll, data_sheet, data_expl
+  global data_coll, count_sheet, data_sheet, count_expl, data_expl
   list_sheet = []
   count_sheet = 0
   list_expl = []
@@ -96,24 +99,67 @@ def read_coll_dir():
       # The filename matches a worksheet with data
       elif is_sheet:
         count_sheet += 1
-        elem_list_sheet = [count_sheet, collection_id, filename]
+        elem_list_sheet = [count_sheet, collection_id, filename,collection_path]
         list_sheet.append(elem_list_sheet)
       else:
         tolog("WARNING", "File " + filename + " in " + collection_path + " has an invalid filename. It will be ignored.")
         
     data_expl  = pd.DataFrame(list_expl, columns = ['ID', 'FK_collection', 'filename', 'directory'])
-    data_sheet = pd.DataFrame(list_sheet, columns = ['ID', 'FK_collection', 'filename'])
+    data_sheet = pd.DataFrame(list_sheet, columns = ['ID', 'FK_collection', 'filename', 'directory'])
 
 # Function read_xls_expl
 # Read excel that contains the explanation
 def read_xls_expl():
   # Test to read single cells from one sheet
-  wb = load_workbook(filename = r'O:\Projekte\PyTabsam\Testfaelle-Input\07_03\T_07.03.0.Erläuterungen.xlsm')
+  wb = load_workbook(filename = r'O:\Projekte\PyTabsam\Testfaelle-Input\07_03\T_07.03.0.Erläuterungen.xlsm', read_only=True)
   sheet_ranges = wb['Internet']
   print(sheet_ranges['A1'].value)
   print(sheet_ranges['B1'].value)
   print(sheet_ranges['A2'].value)
   print(sheet_ranges['B2'].value)
+
+# Function read_xls_metadata
+# Read metadata out of excel 
+def read_xls_metadata(sheet_id):
+  global data_sheet
+  xls_filename = data_sheet.loc[data_sheet['ID'] == sheet_id, 'filename'].values[0]
+  xls_directory = data_sheet.loc[data_sheet['ID'] == sheet_id, 'directory'].values[0]
+  xls_path = xls_directory + "/" + xls_filename
+  #print("Excel: "+ xls_path)
+  wb = load_workbook(filename = xls_path)
+  sheet_md = wb['Metadaten']
+  colkey = ""
+  for (row, col), source_cell in sheet_md._cells.items():
+    #print(str(row) + " - "+ str(col) + ": " + str(source_cell._value))
+    if col==1:
+      colkey = str(source_cell._value).lower()
+    # add values from the metadata sheet directly to the dataframe by ID
+    if col==2:
+      if colkey=="tabellencode":
+        #print("Tabellencode: " + str(source_cell._value))
+        data_sheet.loc[data_sheet['ID'] == sheet_id, ['code']] = str(source_cell._value)
+      if colkey=="tabellentitel":
+        #print("Tabellentitel: " + str(source_cell._value))
+        data_sheet.loc[data_sheet['ID'] == sheet_id, ['title']] = str(source_cell._value)
+      if colkey=="tabellenuntertitel1":
+        #print("Tabellenuntertitel1: " + str(source_cell._value))
+        data_sheet.loc[data_sheet['ID'] == sheet_id, ['subtitle1']] = str(source_cell._value)
+      if colkey=="tabellenuntertitel2":
+        #print("Tabellenuntertitel2: " + str(source_cell._value))
+        data_sheet.loc[data_sheet['ID'] == sheet_id, ['subtitle2']] = str(source_cell._value)
+      if colkey=="quelle":
+        #print("Quelle: " + str(source_cell._value))
+        data_sheet.loc[data_sheet['ID'] == sheet_id, ['source']] = str(source_cell._value)
+
+# Function read_all_metadata
+# Read metadata of all sheets in dataframe 
+def read_all_metadata():
+  global count_sheet, data_sheet
+  #print(count_sheet)
+  sheet_id = 0
+  while sheet_id < count_sheet:
+    sheet_id += 1
+    read_xls_metadata(sheet_id)
 
 
 # Main progam
@@ -128,11 +174,13 @@ def main():
   print("Create sample data")
   create_sampledata()
   
-  read_xls_expl()
+  #read_xls_expl()
+  print("Open all excel sheets, read metadata and add to dataframe")
+  read_all_metadata()
   
-  print(data_coll)
-  print(data_sheet)
-  print(data_expl)
+  #print(data_coll)
+  #print(data_sheet)
+  #print(data_expl)
 
 # Execute main of PyTabsam
 if __name__ == '__main__':
