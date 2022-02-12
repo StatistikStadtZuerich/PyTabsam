@@ -9,14 +9,14 @@ import re # regular expressions
 #import xlwings # Python for Excel see www.xlwings.org / requires: pywintypes / pywin32
 
 # Leere Listen vorbereiten
-data_coll  = pd.DataFrame()
+data_coll  = pd.DataFrame([],dtype=pd.StringDtype())
 print(data_coll)
-data_sheet = pd.DataFrame()
-data_expl  = pd.DataFrame()
+data_sheet = pd.DataFrame([],dtype=pd.StringDtype())
+data_expl  = pd.DataFrame([],dtype=pd.StringDtype())
 
-# Function log
+# Function tolog
 # Write logging information
-def log(level, text):
+def tolog(level, text):
   print(level + ": " + text)
 
 # Function read_config
@@ -36,7 +36,7 @@ def read_config():
           pk = i+1
           elem_list_coll = [pk, coll_elem["title"], coll_elem["input_path"], coll_elem["output_filename"]]
           list_coll.append(elem_list_coll)
-        data_coll = pd.DataFrame(list_coll, columns = ['id', 'title' , 'input_path', 'output_filename'])
+          data_coll = pd.DataFrame(list_coll, columns = ['id', 'title' , 'input_path', 'output_filename'])
 
 # Function create_sampledata
 # Generate sample data
@@ -78,34 +78,34 @@ def read_coll_dir():
     collection_path = row['input_path']
     # get a list of all the files in the directory
     files = [file for file in os.listdir(collection_path)]
-    for file in files:
+    for filename in files:
+      is_expl = re.match(r'T_\d+.\d+.\d+.Erläuterungen.xlsm', filename)
       # Regular Expressen for an excel file containing an explanation
       # Example: T_02.02.0.Erläuterungen.xlsm
-      is_expl  = re.match("T_\d+.\d+.\d+.Erläuterungen.xlsm", file)
+      is_sheet = re.match(r'(T_|T_G)\d+.\d+.\d+(.xlsm|.\d+.xlsm|\w.xlsm)', filename)
       # Regular Expressen for an excel file containing data
       # Examples: T_02.02.03.xlsm, T_02.02.01.2017.xlsm, T_G03.03.01.xlsm, T_G07.03.05a
-      is_sheet = re.match("(T_|T_G)\d+.\d+.\d+(.xlsm|.\d+.xlsm|\w.xlsm)", file)
 
-      # The filename matches an explanation      
+      # The filename matches an explanation
       if is_expl:
         count_expl += 1
-        elem_list_expl = [count_expl, collection_id, file, collection_path]
+        elem_list_expl = [count_expl, collection_id, filename, collection_path]
         list_expl.append(elem_list_expl)
-      # The filename matches a worksheet with data      
+      # The filename matches a worksheet with data
       elif is_sheet:
         count_sheet += 1
-        elem_list_sheet = [count_sheet, collection_id, file]
+        elem_list_sheet = [count_sheet, collection_id, filename]
         list_sheet.append(elem_list_sheet)
       else:
-        log("WARNING", "File " + file + " in " + collection_path + " has an invalid filename. It will be ignored.")
-
+        tolog("WARNING", "File " + filename + " in " + collection_path + " has an invalid filename. It will be ignored.")
+        
     data_expl  = pd.DataFrame(list_expl, columns = ['ID', 'FK_collection', 'filename', 'directory'])
     data_sheet = pd.DataFrame(list_sheet, columns = ['ID', 'FK_collection', 'filename'])
 
 # Function read_xls_expl
 # Read excel that contains the explanation
 def read_xls_expl():
-  pass
+    pass
 
 
 # Main progam
@@ -115,7 +115,7 @@ def main():
   read_config()
   print("Loop trough all collection directories")
   read_coll_dir()
-
+  
   # The sample data will overwrite the data gathered by read_collection
   print("Create sample data")
   create_sampledata()
