@@ -6,7 +6,7 @@ import json
 import pandas as pd
 import os # operating system
 import re # regular expressions
-from openpyxl import load_workbook
+import openpyxl
 # @Hansjörg: Diese Seite könnte interessant sein um Inhalte zu kopieren:
 # https://stackoverflow.com/questions/42344041/how-to-copy-worksheet-from-one-workbook-to-another-one-using-openpyxl
 
@@ -113,7 +113,7 @@ def read_coll_dir():
 # Read excel that contains the explanation
 def read_xls_expl():
   # Test to read single cells from one sheet
-  wb = load_workbook(filename = r'O:\Projekte\PyTabsam\Testfaelle-Input\07_03\T_07.03.0.Erläuterungen.xlsm', read_only=True)
+  wb = openpyxl.load_workbook(filename = r'O:\Projekte\PyTabsam\Testfaelle-Input\07_03\T_07.03.0.Erläuterungen.xlsm', read_only=True)
   sheet_ranges = wb['Internet']
   print(sheet_ranges['A1'].value)
   print(sheet_ranges['B1'].value)
@@ -128,7 +128,7 @@ def read_xls_metadata(sheet_id):
   xls_directory = data_sheet.loc[data_sheet['ID'] == sheet_id, 'directory'].values[0]
   xls_path = xls_directory + "/" + xls_filename
   #print("Excel: "+ xls_path)
-  wb = load_workbook(filename = xls_path)
+  wb = openpyxl.load_workbook(filename = xls_path)
   sheet_md = wb['Metadaten']
   colkey = ""
   for (row, col), source_cell in sheet_md._cells.items():
@@ -161,7 +161,7 @@ def read_xls_footnote(sheet_id, list_foot):
   xls_directory = data_sheet.loc[data_sheet['ID'] == sheet_id, 'directory'].values[0]
   xls_path = xls_directory + "/" + xls_filename
   #print("Excel: "+ xls_path)
-  wb = load_workbook(filename = xls_path)
+  wb = openpyxl.load_workbook(filename = xls_path)
   sheet_fn = wb['Fussnoten']
   coltype = ""
   colfnid = ""
