@@ -205,7 +205,7 @@ def main():
   
   # The sample data will overwrite the data gathered by read_collection
   print("Create sample data")
-  #create_sampledata()
+  create_sampledata()
   
   #read_xls_expl()
   print("Open all excel sheets, read metadata and footnotes and add to dataframes")
