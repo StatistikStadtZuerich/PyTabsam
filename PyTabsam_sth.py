@@ -207,7 +207,7 @@ def create_tabsam():
       
       # Copy the template into the existing xlsx files according to the collection
       coll_ID = row['id']
-      print(coll_ID)
+      #print(coll_ID)
       filename = row['output_filename']
       shutil.copy('VorlageTabsam.xlsx', filename)
       
@@ -232,7 +232,7 @@ def create_worksheet_expl(coll_ID, dest_file):
     if coll_ID == row['FK_collection']:
       # opening the source xlsx
       source_xlsx = row['directory'] + "/" + row['filename']
-      print(source_xlsx)
+      #print(source_xlsx)
       source_wb = openpyxl.load_workbook(source_xlsx)
       source_ws = source_wb["Internet"]
       
@@ -312,6 +312,8 @@ def main():
   print("Open all excel sheets, read metadata and footnotes and add to dataframes")
   read_all_md_fn()
   
+  # Loop over the collection and generating the tabsam
+  print("Loop over the collection and generating the tabsam")
   create_tabsam()
   
   #print(data_coll)
