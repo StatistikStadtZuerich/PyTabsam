@@ -101,13 +101,14 @@ def read_coll_dir():
       # The filename matches a worksheet with data
       elif is_sheet:
         count_sheet += 1
-        elem_list_sheet = [count_sheet, collection_id, filename,collection_path]
+        sheet_name = filename.replace('.xlsm', '').replace('_', '')
+        elem_list_sheet = [count_sheet, collection_id, filename, collection_path, sheet_name]
         list_sheet.append(elem_list_sheet)
       else:
         tolog("WARNING", "File " + filename + " in " + collection_path + " has an invalid filename. It will be ignored.")
         
     data_expl  = pd.DataFrame(list_expl, columns = ['ID', 'FK_collection', 'filename', 'directory'])
-    data_sheet = pd.DataFrame(list_sheet, columns = ['ID', 'FK_collection', 'filename', 'directory'])
+    data_sheet = pd.DataFrame(list_sheet, columns = ['ID', 'FK_collection', 'filename', 'directory', 'sheet_name'])
 
 # Function read_xls_expl
 # Read excel that contains the explanation
