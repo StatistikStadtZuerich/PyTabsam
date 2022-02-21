@@ -266,7 +266,14 @@ def create_worksheet_expl(coll_ID, dest_file):
 
 # Function create_worksheets
 def create_worksheets(coll_ID, dest_file):
-  count_toc = 11
+  
+  # set the counter for the table of content
+  wb = openpyxl.load_workbook(dest_file, read_only=True)
+  if 'Erläuterungen' in wb.sheetnames:
+    count_toc = 11
+  else:
+    count_toc = 10
+        
   for index, row in data_sheet.iterrows():
     if coll_ID == row['FK_collection']:
 
@@ -287,7 +294,6 @@ def create_worksheets(coll_ID, dest_file):
         title_toc = row['title'] + ", " + row['subtitle1']
       
       # Write name and title in the table of contents
-      # --> Positionierung stimmt noch nicht
       content = dest_wb["Inhalt"]
       content.cell(row=count_toc, column=1).value = row['code']
       content.cell(row=count_toc, column=2).value = title_toc
