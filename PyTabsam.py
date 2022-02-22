@@ -7,6 +7,9 @@ import pandas as pd
 import os # operating system
 import re # regular expressions
 import openpyxl
+import shutil
+import datetime
+
 # @Hansjörg: Diese Seite könnte interessant sein um Inhalte zu kopieren:
 # https://stackoverflow.com/questions/42344041/how-to-copy-worksheet-from-one-workbook-to-another-one-using-openpyxl
 
@@ -18,6 +21,8 @@ count_expl = 0
 data_expl  = pd.DataFrame([],dtype=pd.StringDtype())
 count_foot = 0
 data_foot  = pd.DataFrame([],dtype=pd.StringDtype())
+# Global varible from configuration
+path_output = ""
 
 # Function tolog
 # Write logging information
@@ -30,8 +35,10 @@ def read_config():
   with open('config.json', 'r', encoding="utf-8") as f:
     config = json.load(f)
     list_coll = []
-    global data_coll
-
+    global data_coll, path_output
+    
+    path_output = config['path_output']
+    
     for key in config:
       conf_value = config[key]
       if key == "collection":
@@ -200,13 +207,14 @@ def read_all_md_fn():
 # Create and generate the destination excel files
 # If the destination files already exists, they will be overwritten
 def create_tabsam():
+    global path_output
     coll_ID = 0
     for index, row in data_coll.iterrows():
       
       # Copy the template into the existing xlsx files according to the collection
       coll_ID = row['id']
       #print(coll_ID)
-      filename = row['output_filename']
+      filename = path_output + '/' + row['output_filename']
       shutil.copy('VorlageTabsam.xlsx', filename)
       
       # Fill in the creation date into the worksheet 'Inhalt' 
