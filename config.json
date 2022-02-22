@@ -16,7 +16,7 @@
 			"output_filename": "Abfallentsorgung.xlsx"
 		}
 	],
-	"path_output": "T:/PyTabsam",
+	"path_output": "O:/Projekte/PyTabsam/Testfaelle-Output",
 	"path_log": "T:/PyTabsam",
 	"write_log_to_excel": true
 }
