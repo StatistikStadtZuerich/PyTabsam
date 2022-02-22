@@ -9,6 +9,7 @@ import re # regular expressions
 import openpyxl
 import shutil
 import datetime
+from copy import copy
 
 # @Hansjörg: Diese Seite könnte interessant sein um Inhalte zu kopieren:
 # https://stackoverflow.com/questions/42344041/how-to-copy-worksheet-from-one-workbook-to-another-one-using-openpyxl
@@ -260,6 +261,9 @@ def create_worksheet_expl(coll_ID, dest_file):
   
           # writing the read value to destination xlsx file
           dest_ws.cell(row = i, column = j).value = c.value
+          
+          # copy font
+          dest_ws.cell(row = i, column = j).font = copy(c.font)
   
       # Write "Erläuterungen" in the table of contents
       content = dest_wb["Inhalt"]
