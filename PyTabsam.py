@@ -7,6 +7,7 @@ import pandas as pd
 import os # operating system
 import re # regular expressions
 import openpyxl
+from openpyxl.styles import Font
 import shutil
 import datetime
 from copy import copy
@@ -234,12 +235,15 @@ def create_tabsam():
   
 
 # Function create_worksheet_expl
+# Copy the explanation from the source worksheet "Internet"
+# Copy all the format of the source worksheet "Internet"
+# Write the destination worksheet
+# Write the titel in the table of content in the worksheet "Inhalt"
 def create_worksheet_expl(coll_ID, dest_file):
   for index, row in data_expl.iterrows():
     if coll_ID == row['FK_collection']:
       # opening the source xlsx
       source_xlsx = row['directory'] + "/" + row['filename']
-      #print(source_xlsx)
       source_wb = openpyxl.load_workbook(source_xlsx)
       source_ws = source_wb["Internet"]
       
@@ -247,24 +251,10 @@ def create_worksheet_expl(coll_ID, dest_file):
       dest_wb = openpyxl.load_workbook(dest_file)
       dest_ws = dest_wb.create_sheet("Erläuterungen")
 
-      # calculate total number of rows and 
-      # columns in source excel file
-      mr = source_ws.max_row
-      mc = source_ws.max_column
-      
-      # copying the cell values from source 
-      # excel file to destination xlsx file
-      for i in range (1, mr + 1):
-        for j in range (1, mc + 1):
-          # reading cell value from source xlsx
-          c = source_ws.cell(row = i, column = j)
-  
-          # writing the read value to destination xlsx file
-          dest_ws.cell(row = i, column = j).value = c.value
-          
-          # copy font
-          dest_ws.cell(row = i, column = j).font = copy(c.font)
-  
+      # Read the data from the source worksheet and write it to the destination worksheet
+      # Copy all the format of the source worksheet "Internet"
+      read_write_data(source_ws, dest_ws, 0)
+
       # Write "Erläuterungen" in the table of contents
       content = dest_wb["Inhalt"]
       content.cell(row=10, column=1).value = "Erläuterungen"
@@ -287,22 +277,50 @@ def create_worksheets(coll_ID, dest_file):
   for index, row in data_sheet.iterrows():
     if coll_ID == row['FK_collection']:
 
+      # opening the source xlsx
+      source_xlsx = row['directory'] + "/" + row['filename']
+      source_wb = openpyxl.load_workbook(source_xlsx)
+      source_ws = source_wb["Internet"]
+
       # opening the destination xlsx and create the new worksheet
       dest_wb = openpyxl.load_workbook(dest_file)
-      # neu sheetname
       dest_ws = dest_wb.create_sheet(row['sheet_name'])
       
       # Write the code, title, subtitle1, subtitle2, source
       dest_ws.cell(row=1, column=1).value = row['code']
+      dest_ws.cell(row=1, column=1).font = Font(name='Arial', size=8)
       dest_ws.cell(row=2, column=1).value = row['title']
-      dest_ws.cell(row=3, column=1).value = row['subtitle1']
-      if(row['subtitle2'] != "None"):
+      dest_ws.cell(row=2, column=1).font = Font(name='Arial', size=8)
+      if(row['subtitle1'] != "None" and row['subtitle2'] != "None"):
+        dest_ws.cell(row=3, column=1).value = row['subtitle1']
+        dest_ws.cell(row=3, column=1).font = Font(name='Arial', size=8)
         dest_ws.cell(row=4, column=1).value = row['subtitle2']
+        dest_ws.cell(row=4, column=1).font = Font(name='Arial', size=8)
         dest_ws.cell(row=6, column=1).value = row['source']
+        dest_ws.cell(row=6, column=1).font = Font(name='Arial', size=8)
         title_toc = row['title'] + ", " + row['subtitle1'] + ", " + row['subtitle2']
-      else:
+        # define the row, where the content starts
+        row_start = 8
+      if(row['subtitle1'] != "None" and row['subtitle2'] == "None"):
+        dest_ws.cell(row=3, column=1).value = row['subtitle1']
+        dest_ws.cell(row=3, column=1).font = Font(name='Arial', size=8)
         dest_ws.cell(row=5, column=1).value = row['source']
+        dest_ws.cell(row=5, column=1).font = Font(name='Arial', size=8)
         title_toc = row['title'] + ", " + row['subtitle1']
+        # define the row, where the content starts
+        row_start = 7
+      if(row['subtitle1'] == "None" and row['subtitle2'] != "None"):
+        dest_ws.cell(row=3, column=1).value = row['subtitle2']
+        dest_ws.cell(row=3, column=1).font = Font(name='Arial', size=8)
+        dest_ws.cell(row=5, column=1).value = row['source']
+        dest_ws.cell(row=5, column=1).font = Font(name='Arial', size=8)
+        title_toc = row['title'] + ", " + row['subtitle2']
+        # define the row, where the content starts
+        row_start = 7
+      
+      # Read the data from the source worksheet and write it to the destination worksheet
+      # Copy all the format of the source worksheet "Internet"
+      read_write_data(source_ws, dest_ws, row_start)
       
       # Write name and title in the table of contents
       content = dest_wb["Inhalt"]
@@ -313,6 +331,51 @@ def create_worksheets(coll_ID, dest_file):
       # saving the destination xlsx file
       dest_wb.save(dest_file)
 
+# Function read_write_data
+def read_write_data(source_ws, dest_ws, row_start):
+
+      #dest_ws.sheet_format = copy(source_ws.sheet_format)
+      #dest_ws.sheet_properties = copy(source_ws.sheet_properties)
+      #dest_ws.merged_cells = copy(source_ws.merged_cells)
+      #dest_ws.page_margins = copy(source_ws.page_margins)
+      #dest_ws.freeze_panes = copy(source_ws.freeze_panes)
+
+      #for key1, value in source_ws.row_dimensions.items():
+        # funktioniert nicht
+        #dest_ws.row_dimensions[key1].height = copy(source_ws.row_dimensions[key1].height)
+
+      # set specific column width and hidden property
+      # we cannot copy the entire column_dimensions attribute so we copy selected attributes
+      for key, value in source_ws.column_dimensions.items():
+        # Excel actually groups multiple columns under 1 key. Use the min max attribute to also group the columns in the targetSheet
+        dest_ws.column_dimensions[key].min = copy(source_ws.column_dimensions[key].min)   
+        dest_ws.column_dimensions[key].max = copy(source_ws.column_dimensions[key].max)
+        # set width for every column
+        dest_ws.column_dimensions[key].width = copy(source_ws.column_dimensions[key].width) 
+        dest_ws.column_dimensions[key].hidden = copy(source_ws.column_dimensions[key].hidden)
+
+      # calculate total number of rows and 
+      # columns in source excel file
+      mr = source_ws.max_row
+      mc = source_ws.max_column
+      
+      # copying the cell values from source 
+      # excel file to destination xlsx file
+      for i in range (1, mr + 1):
+        for j in range (1, mc + 1):
+          # reading cell value from source xlsx
+          c = source_ws.cell(row = i, column = j)
+  
+          # writing the read value to destination xlsx file
+          dest_ws.cell(row = i+row_start, column = j).value = c.value
+          
+          # set the color to black and copy font
+          c.font = c.font.copy(color = 'FF000000')
+          dest_ws.cell(row = i+row_start, column = j).font = copy(c.font)
+          
+          # copy alignment
+          dest_ws.cell(row = i+row_start, column = j).alignment = copy(c.alignment)
+      
 
 # Main progam
 def main():
