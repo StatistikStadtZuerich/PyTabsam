@@ -113,6 +113,8 @@ def read_xls_metadata(sheet_id):
     if col==1:
       colkey = str(source_cell._value).lower()
     # add values from the metadata sheet directly to the dataframe by ID
+    # wfn stands for "without footnote" an can late be used in the table of contents
+    # re.sub removes " #1" and "#1" (without trailing blanks) from strings
     if col==2:
       if colkey=="tabellencode":
         #print("Tabellencode: " + str(source_cell._value))
@@ -120,15 +122,19 @@ def read_xls_metadata(sheet_id):
       if colkey=="tabellentitel":
         #print("Tabellentitel: " + str(source_cell._value))
         data_sheet.loc[data_sheet['ID'] == sheet_id, ['title']] = str(source_cell._value)
+        data_sheet.loc[data_sheet['ID'] == sheet_id, ['title_wfn']] = re.sub('( #[0-9]+)|(#[0-9]+)', '', str(source_cell._value))
       if colkey=="tabellenuntertitel1":
         #print("Tabellenuntertitel1: " + str(source_cell._value))
         data_sheet.loc[data_sheet['ID'] == sheet_id, ['subtitle1']] = str(source_cell._value)
+        data_sheet.loc[data_sheet['ID'] == sheet_id, ['subtitle1_wfn']] = re.sub('( #[0-9]+)|(#[0-9]+)', '', str(source_cell._value))
       if colkey=="tabellenuntertitel2":
         #print("Tabellenuntertitel2: " + str(source_cell._value))
         data_sheet.loc[data_sheet['ID'] == sheet_id, ['subtitle2']] = str(source_cell._value)
+        data_sheet.loc[data_sheet['ID'] == sheet_id, ['subtitle2_wfn']] = re.sub('( #[0-9]+)|(#[0-9]+)', '', str(source_cell._value))
       if colkey=="quelle":
         #print("Quelle: " + str(source_cell._value))
         data_sheet.loc[data_sheet['ID'] == sheet_id, ['source']] = str(source_cell._value)
+
 
 # Function read_xls_footnote
 # Read footnote of excel 
@@ -172,7 +178,7 @@ def read_all_md_fn():
     data_foot = pd.DataFrame(list_foot, columns = ['ID', 'FK_sheet', 'code', 'text'])
 
 
-# Function creat_tabsam 
+# Function create_tabsam 
 # Create and generate the destination excel files
 # If the destination files already exists, they will be overwritten
 def create_tabsam():
