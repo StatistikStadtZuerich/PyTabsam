@@ -178,6 +178,21 @@ def read_all_md_fn():
     data_foot = pd.DataFrame(list_foot, columns = ['ID', 'FK_sheet', 'code', 'text', 'used'])
 
 
+# Function to_superscript
+# Convert footnote codes to their equivalent in unicode superscript characters
+# This function is limited to 25 footnotes
+def to_superscript(matchobj):
+    m =  matchobj.group(0)
+    map = {'#1': '\u00B9', '#2': '\u00B2', '#3': '\u00B3', '#4': '\u2074', '#5': '\u2075',
+           '#6': '\u2076', '#7': '\u2077', '#8': '\u2078', '#9': '\u2079', '#10': '\u00B9\u2070',
+           '#11': '\u00B9\u00B9', '#12': '\u00B9\u00B2', '#13': '\u00B9\u00B3', 
+           '#14': '\u00B9\u2074', '#15': '\u00B9\u2075',  '#16': '\u00B9\u2076',
+           '#17': '\u00B9\u2077', '#18': '\u00B9\u2078',  '#19': '\u00B9\u2079', 
+           '#20': '\u00B2\u2070', '#21': '\u00B2\u00B9', '#22': '\u00B2\u00B2',
+           '#23': '\u00B2\u00B3', '#24': '\u00B2\u2074', '#25': '\u00B2\u2075'}
+    return map[m]
+
+
 # Function convert_footnote 
 # Check if string contains reference to a footnote and if a related description exists
 # Mark used footnotes in data_foot for later output
@@ -206,14 +221,11 @@ def convert_footnote(sheet_id, input_string):
         data_foot.loc[(data_foot['FK_sheet'] == sheet_id) & (data_foot['code'] == fn_code), "used"] = "true"
         # replace the hash-sign with superscript code for nicer Excel ouput
         pattern = "#(" + fn_code[1:] + ")"
-        output_string = re.sub(pattern, r'<FuNo>\1</FuNo>', output_string)
+        output_string = re.sub(pattern, to_superscript, output_string)
     return(output_string)
   else:
     # No reference to a footnote found
     return(input_string)
-  
-#print (convert_footnote(2, "Dieser Text hat keine Fussnote drin"))
-#print (convert_footnote(2, "Hier sind#1 drei#22 Fussnoten drin #3."))
 
 
 # Function create_tabsam 
@@ -379,9 +391,12 @@ def read_write_data(source_ws, dest_ws, row_start, sheet_id):
       c = source_ws.cell(row = i, column = j)
 
       # writing the read value to destination xlsx file
-      # uses the convert_footnote function to convert any footnote references within the value
-      dest_ws.cell(row = i+row_start, column = j).value = convert_footnote(0, c.value)
-          
+      # uses the convert_footnote function to convert any footnote references within string values
+      if isinstance(c.value, str):
+        dest_ws.cell(row = i+row_start, column = j).value = convert_footnote(sheet_id, c.value)
+      else:
+        dest_ws.cell(row = i+row_start, column = j).value = c.value
+      
       # set the color to black and copy font
       c.font = c.font.copy(color = 'FF000000')
       dest_ws.cell(row = i+row_start, column = j).font = copy(c.font)
