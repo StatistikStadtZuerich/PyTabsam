@@ -68,6 +68,7 @@ def read_coll_dir():
   for index, row in data_coll.iterrows():
     collection_id   = row['id']
     collection_path = row['input_path']
+    tolog("INFO", "Reading collection from: " + collection_path)
     # get a list of all the files in the directory
     files = [file for file in os.listdir(collection_path)]
     for filename in files:
@@ -95,16 +96,6 @@ def read_coll_dir():
     data_expl  = pd.DataFrame(list_expl, columns = ['ID', 'FK_collection', 'filename', 'directory'])
     data_sheet = pd.DataFrame(list_sheet, columns = ['ID', 'FK_collection', 'filename', 'directory', 'sheet_name'])
 
-# Function read_xls_expl
-# Read excel that contains the explanation
-def read_xls_expl():
-  # Test to read single cells from one sheet
-  wb = openpyxl.load_workbook(filename = r'O:\Projekte\PyTabsam\Testfaelle-Input\07_03\T_07.03.0.Erläuterungen.xlsm', read_only=True)
-  sheet_ranges = wb['Internet']
-  print(sheet_ranges['A1'].value)
-  print(sheet_ranges['B1'].value)
-  print(sheet_ranges['A2'].value)
-  print(sheet_ranges['B2'].value)
 
 # Function read_xls_metadata
 # Read metadata of excel 
@@ -359,16 +350,16 @@ def read_write_data(source_ws, dest_ws, row_start):
 # Main progam
 def main():
   global data_coll
+  
   tolog("INFO", "Read the configuration")
   read_config()
+  
   tolog("INFO", "Loop trough all collection directories")
   read_coll_dir()
   
-  #read_xls_expl()
   tolog("INFO", "Open all excel sheets, read metadata and footnotes and add to dataframes")
   read_all_md_fn()
   
-  # Loop over the collection and generating the tabsam
   tolog("INFO", "Loop over the collection and generating the tabsam")
   create_tabsam()
   
