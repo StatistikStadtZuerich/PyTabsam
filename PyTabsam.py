@@ -313,7 +313,7 @@ def create_worksheets(coll_ID, dest_file):
         dest_ws.cell(row=4, column=1).font = Font(name='Arial', size=8)
         dest_ws.cell(row=6, column=1).value = "Quelle: " + row['source']
         dest_ws.cell(row=6, column=1).font = Font(name='Arial', size=8)
-        title_toc = row['title'] + ", " + row['subtitle1'] + ", " + row['subtitle2']
+        title_toc = row['title_wfn'] + ", " + row['subtitle1_wfn'] + ", " + row['subtitle2_wfn']
         # define the row, where the content starts
         row_start = 8
       if(row['subtitle1'] != "None" and row['subtitle2'] == "None"):
@@ -321,7 +321,7 @@ def create_worksheets(coll_ID, dest_file):
         dest_ws.cell(row=3, column=1).font = Font(name='Arial', size=8)
         dest_ws.cell(row=5, column=1).value = "Quelle: " + row['source']
         dest_ws.cell(row=5, column=1).font = Font(name='Arial', size=8)
-        title_toc = row['title'] + ", " + row['subtitle1']
+        title_toc = row['title_wfn'] + ", " + row['subtitle1_wfn']
         # define the row, where the content starts
         row_start = 7
       if(row['subtitle1'] == "None" and row['subtitle2'] != "None"):
@@ -329,7 +329,7 @@ def create_worksheets(coll_ID, dest_file):
         dest_ws.cell(row=3, column=1).font = Font(name='Arial', size=8)
         dest_ws.cell(row=5, column=1).value = "Quelle: " + row['source']
         dest_ws.cell(row=5, column=1).font = Font(name='Arial', size=8)
-        title_toc = row['title'] + ", " + row['subtitle2']
+        title_toc = row['title_wfn'] + ", " + row['subtitle2_wfn']
         # define the row, where the content starts
         row_start = 7
       
