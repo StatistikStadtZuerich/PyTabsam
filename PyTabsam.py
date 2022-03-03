@@ -228,6 +228,33 @@ def convert_footnote(sheet_id, input_string):
     return(input_string)
 
 
+# Function prepare_footnotes 
+# Check if all footnotes from the metadata have been referenced 
+# Returns a list with the footnote items for the output worksheet
+def prepare_footnotes(sheet_id):
+  list_fn = []
+  for index, row in data_foot[(data_foot['FK_sheet'] == sheet_id)].iterrows():
+    if row['used']=="false":
+      sheetname = data_sheet.loc[(data_sheet['ID'] == sheet_id), "filename"].iloc[0]
+      tolog("WARNING", "The footnote " +  row['code'] + " is not used, but was found in the worksheet Fussnoten of " + sheetname)
+    else:
+      code_sup = re.sub("(#[0-9]+)", to_superscript, row['code'])
+      list_fn.append(code_sup + " " + row['text'])
+  return(list_fn)
+
+
+# Function write_footnotes
+# Add footnotes to the end of the worksheet
+def write_footnotes(dest_ws, list_wsfn, row_start):
+  if len(list_wsfn)==0:
+    return(row_start)
+  else:
+    for i in range(len(list_wsfn)):
+      dest_ws.cell(row=row_start+i, column=1).value = list_wsfn[i]
+      dest_ws.cell(row=row_start+i, column=1).font = Font(name='Arial', size=8)
+  return(row_start+i)
+
+
 # Function create_tabsam 
 # Create and generate the destination excel files
 # If the destination files already exists, they will be overwritten
@@ -275,7 +302,7 @@ def create_worksheet_expl(coll_ID, dest_file):
 
       # Read the data from the source worksheet "Internet" and write it to the destination worksheet
       # Copy all the format of the source worksheet "Internet"
-      read_write_data(source_ws, dest_ws, 0, 0)
+      last_row = read_write_data(source_ws, dest_ws, 0, 0)
 
       # Write "Erläuterungen" in the table of contents
       content = dest_wb["Inhalt"]
@@ -350,7 +377,12 @@ def create_worksheets(coll_ID, dest_file):
       
       # Read the data from the source worksheet and write it to the destination worksheet
       # Copy all the format of the source worksheet "Internet"
-      read_write_data(source_ws, dest_ws, row_start, row['ID'])
+      last_row = read_write_data(source_ws, dest_ws, row_start, row['ID'])
+
+      # Get a list of all used footnotes for this worksheet
+      list_wsfn = prepare_footnotes(row['ID'])
+      row_start = last_row+3
+      last_row = write_footnotes(dest_ws, list_wsfn, row_start)
       
       # Set the uniform row height to 12.75 for the common worksheet
       maxrow = dest_ws.max_row
@@ -406,6 +438,7 @@ def read_write_data(source_ws, dest_ws, row_start, sheet_id):
       
       # copy number_format
       dest_ws.cell(row = i+row_start, column = j).number_format = copy(c.number_format)
+  return(i+row_start)
 
 # Main progam
 def main():
