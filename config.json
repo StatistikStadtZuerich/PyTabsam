@@ -4,18 +4,11 @@
 			"title": "Meteorologie",
 			"input_path": "O:/Projekte/PyTabsam/Testfaelle-Input/02_02",
 			"output_filename": "Meteorologie.xlsx"
-		}
-	],
-	"backup-collection": [
-		{
-			"title": "Meteorologie",
-			"input_path": "O:/Projekte/PyTabsam/Testfaelle-Input/02_02",
-			"output_filename": "Meteorologie.xlsx"
 		},
 		{
 			"title": "Luftqualitaet",
 			"input_path": "O:/Projekte/PyTabsam/Testfaelle-Input/07_03",
-			"output_filename": "Luftqualitaet.xlsx"
+			"output_filename": "Luftqualität.xlsx"
 		},
 		{
 			"title": "Abfallentsorgung",
