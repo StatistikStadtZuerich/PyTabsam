@@ -52,33 +52,6 @@ def read_config():
           list_coll.append(elem_list_coll)
           data_coll = pd.DataFrame(list_coll, columns = ['id', 'title' , 'input_path', 'output_filename'])
 
-# Function create_sampledata
-# Generate sample data
-def create_sampledata():
-  global data_coll, count_sheet, data_sheet, count_expl, data_expl
-  # COLLECTION
-  list_coll = []
-  elem_list_coll = [1, "Meteorologie", "O:/Projekte/PyTabsam/Testfaelle-Input/02_02", "Meteorologie.xlsx"]
-  list_coll.append(elem_list_coll)
-  elem_list_coll = [2, "Luftqualität", "O:/Projekte/PyTabsam/Testfaelle-Input/07_03", "Luftqualitaet.xlsx"]
-  list_coll.append(elem_list_coll)
-  elem_list_coll = [3, "Abfallentsorgung", "O:/Projekte/PyTabsam/Testfaelle-Input/07_02", "Abfallentsorgung.xlsx"]
-  list_coll.append(elem_list_coll)
-  data_coll = pd.DataFrame(list_coll, columns = ['id', 'title' , 'input_path', 'output_filename'])
-  
-  # SHEET
-  list_sheet = []
-  elem_list_sheet = [1, 1, "T_02.02.01.2017.xlsm", "O:/Projekte/PyTabsam/Testfaelle-Input/02_02", "T02.02.01.2017", "T_2.2.1.2017", "Wetterrekorde", "Station Zürich Fluntern", "historisch und 2017", "MeteoSchweiz", 1]
-  list_sheet.append(elem_list_sheet)
-  data_sheet = pd.DataFrame(list_sheet, columns = ['ID', 'FK_collection', 'filename', 'directory', 'sheet_name', 'code', 'title', 'subtitle1', 'subtitle2', 'source', 'order'])
-  count_sheet = 1
-  
-  # EXPLANATION
-  list_expl = []
-  elem_list_expl = [1, 1, "T_02.02.0.Erläuterung.xlsm", "O:/Projekte/PyTabsam/Testfaelle-Input/02_02"]
-  list_expl.append(elem_list_expl)
-  data_expl = pd.DataFrame(list_expl, columns = ['ID', 'FK_collection', 'filename', 'directory'])
-  count_expl = 1
 
 # Function read_coll_dir
 # Open each collection path and scan for all files in it. Match names to expl. and sheets.
@@ -388,10 +361,6 @@ def main():
   print("Loop trough all collection directories")
   read_coll_dir()
   
-  # The sample data will overwrite the data gathered by read_collection
-  print("Create sample data")
-  #create_sampledata()
-  
   #read_xls_expl()
   print("Open all excel sheets, read metadata and footnotes and add to dataframes")
   read_all_md_fn()
@@ -400,9 +369,6 @@ def main():
   print("Loop over the collection and generating the tabsam")
   create_tabsam()
   
-  #print(data_coll)
-  #print(data_sheet)
-  #print(data_expl)
 
 # Execute main of PyTabsam
 if __name__ == '__main__':
