@@ -158,7 +158,7 @@ def read_xls_footnote(sheet_id, list_foot):
       if coltype=="<web>":
         count_foot += 1 
         #print("Fussnote Nr: " + colfnid + " = " + str(source_cell._value))
-        elem_list_foot = [count_foot, sheet_id, colfnid, str(source_cell._value)]
+        elem_list_foot = [count_foot, sheet_id, colfnid, str(source_cell._value), "false"]
         list_foot.append(elem_list_foot)
 
 
@@ -175,7 +175,42 @@ def read_all_md_fn():
     sheet_id += 1
     read_xls_metadata(sheet_id)
     read_xls_footnote(sheet_id, list_foot)
-    data_foot = pd.DataFrame(list_foot, columns = ['ID', 'FK_sheet', 'code', 'text'])
+    data_foot = pd.DataFrame(list_foot, columns = ['ID', 'FK_sheet', 'code', 'text', 'used'])
+
+
+# Function convert_footnote 
+# Check if string contains reference to a footnote and if a related description exists
+# Mark used footnotes in data_foot for later output
+# Convert "#1" notation of input to nice superscript for output
+def convert_footnote(sheet_ID, input_string):
+  global data_foot, data_sheet
+  output_string = input_string
+  # check if there is a footnote code in the input string (with or without leading space)
+  if re.search("( #[0-9]+)|(#[0-9]+)", input_string):
+    # At least one footnote was found
+    fn_refs = re.findall(" #[0-9]+|#[0-9]+", input_string)
+    for fn_ref in fn_refs:
+      # extract the number (if it has for example a leading space)
+      match = re.search("(#[0-9]+)", fn_ref)
+      fn_code = match.group(1);
+      # check if footnote code exists in data_foot
+      rslt_df = data_foot[(data_foot['FK_sheet'] == sheet_ID) & (data_foot['code'] == fn_code)]
+      if rslt_df.empty:
+        sheetname = data_sheet.loc[(data_sheet['ID'] == sheet_ID), "filename"].iloc[0]
+        tolog("WARNING", "The footnote " + fn_code + " was referenced, but not found in the worksheet Fussnoten of " + sheetname)
+      else:
+        # set "used" to true, to check later (when creating the table) if all the footnotes were used 
+        data_foot.loc[(data_foot['FK_sheet'] == sheet_ID) & (data_foot['code'] == fn_code), "used"] = "true"
+        # replace the hash-sign with superscript code for nicer Excel ouput
+        pattern = "#(" + fn_code[1:] + ")"
+        output_string = re.sub(pattern, r'<FuNo>\1</FuNo>', output_string)
+    return(output_string)
+  else:
+    # No reference to a footnote found
+    return(input_string)
+  
+#print (convert_footnote(2, "Dieser Text hat keine Fussnote drin"))
+#print (convert_footnote(2, "Hier sind#1 drei#22 Fussnoten drin #3."))
 
 
 # Function create_tabsam 
@@ -187,7 +222,7 @@ def create_tabsam():
   for index, row in data_coll.iterrows():
     # Copy the template into the existing xlsx files according to the collection
     coll_ID = row['id']
-    #print(coll_ID)
+    tolog("INFO", "Writing collection to: " + row['output_filename'])
     filename = path_output + '/' + row['output_filename']
     shutil.copy('VorlageTabsam.xlsx', filename)
       
@@ -269,12 +304,12 @@ def create_worksheets(coll_ID, dest_file):
       # Write the code, title, subtitle1, subtitle2, source
       dest_ws.cell(row=1, column=1).value = row['code']
       dest_ws.cell(row=1, column=1).font = Font(name='Arial', size=8)
-      dest_ws.cell(row=2, column=1).value = row['title']
+      dest_ws.cell(row=2, column=1).value = convert_footnote(row["ID"], row['title'])
       dest_ws.cell(row=2, column=1).font = Font(name='Arial', size=8)
       if(row['subtitle1'] != "None" and row['subtitle2'] != "None"):
-        dest_ws.cell(row=3, column=1).value = row['subtitle1']
+        dest_ws.cell(row=3, column=1).value = convert_footnote(row["ID"], row['subtitle1'])
         dest_ws.cell(row=3, column=1).font = Font(name='Arial', size=8)
-        dest_ws.cell(row=4, column=1).value = row['subtitle2']
+        dest_ws.cell(row=4, column=1).value = convert_footnote(row["ID"], row['subtitle2'])
         dest_ws.cell(row=4, column=1).font = Font(name='Arial', size=8)
         dest_ws.cell(row=6, column=1).value = "Quelle: " + row['source']
         dest_ws.cell(row=6, column=1).font = Font(name='Arial', size=8)
