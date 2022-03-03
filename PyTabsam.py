@@ -29,7 +29,10 @@ path_output = ""
 # Function tolog
 # Write logging information
 def tolog(level, text):
-  print(level + ": " + text)
+  dateTimeObj = datetime.datetime.now()
+  timestamp = dateTimeObj.strftime("%Y-%m-%d %H:%M:%S%z")
+  print(level + " (" + timestamp + "): " + text)
+
 
 # Function read_config
 # Read the configuration file
@@ -356,17 +359,17 @@ def read_write_data(source_ws, dest_ws, row_start):
 # Main progam
 def main():
   global data_coll
-  print("Read the configuration")
+  tolog("INFO", "Read the configuration")
   read_config()
-  print("Loop trough all collection directories")
+  tolog("INFO", "Loop trough all collection directories")
   read_coll_dir()
   
   #read_xls_expl()
-  print("Open all excel sheets, read metadata and footnotes and add to dataframes")
+  tolog("INFO", "Open all excel sheets, read metadata and footnotes and add to dataframes")
   read_all_md_fn()
   
   # Loop over the collection and generating the tabsam
-  print("Loop over the collection and generating the tabsam")
+  tolog("INFO", "Loop over the collection and generating the tabsam")
   create_tabsam()
   
 
