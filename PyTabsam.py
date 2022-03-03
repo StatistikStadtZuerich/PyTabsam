@@ -153,7 +153,7 @@ def read_xls_footnote(sheet_id, list_foot):
     if col==1:
       coltype = str(source_cell._value).lower()
     if col==2:
-      colfnid = str(source_cell._value).lower()
+      colfnid = str(source_cell._value).lower().strip()
     if col==3:
       if coltype=="<web>":
         count_foot += 1 
