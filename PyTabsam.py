@@ -182,11 +182,14 @@ def read_all_md_fn():
 # Check if string contains reference to a footnote and if a related description exists
 # Mark used footnotes in data_foot for later output
 # Convert "#1" notation of input to nice superscript for output
-def convert_footnote(sheet_ID, input_string):
+def convert_footnote(sheet_id, input_string):
   global data_foot, data_sheet
   output_string = input_string
+  # check if a sheet_id is provided. Explanations dont have footnotes and will provide a zero
+  if sheet_id==0:
+    return(input_string)
   # check if there is a footnote code in the input string (with or without leading space)
-  if re.search("( #[0-9]+)|(#[0-9]+)", input_string):
+  elif re.search("( #[0-9]+)|(#[0-9]+)", input_string):
     # At least one footnote was found
     fn_refs = re.findall(" #[0-9]+|#[0-9]+", input_string)
     for fn_ref in fn_refs:
@@ -194,13 +197,13 @@ def convert_footnote(sheet_ID, input_string):
       match = re.search("(#[0-9]+)", fn_ref)
       fn_code = match.group(1);
       # check if footnote code exists in data_foot
-      rslt_df = data_foot[(data_foot['FK_sheet'] == sheet_ID) & (data_foot['code'] == fn_code)]
+      rslt_df = data_foot[(data_foot['FK_sheet'] == sheet_id) & (data_foot['code'] == fn_code)]
       if rslt_df.empty:
-        sheetname = data_sheet.loc[(data_sheet['ID'] == sheet_ID), "filename"].iloc[0]
+        sheetname = data_sheet.loc[(data_sheet['ID'] == sheet_id), "filename"].iloc[0]
         tolog("WARNING", "The footnote " + fn_code + " was referenced, but not found in the worksheet Fussnoten of " + sheetname)
       else:
         # set "used" to true, to check later (when creating the table) if all the footnotes were used 
-        data_foot.loc[(data_foot['FK_sheet'] == sheet_ID) & (data_foot['code'] == fn_code), "used"] = "true"
+        data_foot.loc[(data_foot['FK_sheet'] == sheet_id) & (data_foot['code'] == fn_code), "used"] = "true"
         # replace the hash-sign with superscript code for nicer Excel ouput
         pattern = "#(" + fn_code[1:] + ")"
         output_string = re.sub(pattern, r'<FuNo>\1</FuNo>', output_string)
@@ -260,7 +263,7 @@ def create_worksheet_expl(coll_ID, dest_file):
 
       # Read the data from the source worksheet "Internet" and write it to the destination worksheet
       # Copy all the format of the source worksheet "Internet"
-      read_write_data(source_ws, dest_ws, 0)
+      read_write_data(source_ws, dest_ws, 0, 0)
 
       # Write "Erläuterungen" in the table of contents
       content = dest_wb["Inhalt"]
@@ -335,7 +338,7 @@ def create_worksheets(coll_ID, dest_file):
       
       # Read the data from the source worksheet and write it to the destination worksheet
       # Copy all the format of the source worksheet "Internet"
-      read_write_data(source_ws, dest_ws, row_start)
+      read_write_data(source_ws, dest_ws, row_start, row['ID'])
       
       # Set the uniform row height to 12.75 for the common worksheet
       maxrow = dest_ws.max_row
@@ -352,7 +355,7 @@ def create_worksheets(coll_ID, dest_file):
       dest_wb.save(dest_file)
 
 # Function read_write_data
-def read_write_data(source_ws, dest_ws, row_start):
+def read_write_data(source_ws, dest_ws, row_start, sheet_id):
   # set specific column width and hidden property
   # we cannot copy the entire column_dimensions attribute so we copy selected attributes
   for key, value in source_ws.column_dimensions.items():
@@ -367,7 +370,7 @@ def read_write_data(source_ws, dest_ws, row_start):
   # columns in source excel file
   mr = source_ws.max_row
   mc = source_ws.max_column
-      
+
   # copying the cell values from source 
   # excel file to destination xlsx file
   for i in range (1, mr + 1):
@@ -376,7 +379,8 @@ def read_write_data(source_ws, dest_ws, row_start):
       c = source_ws.cell(row = i, column = j)
 
       # writing the read value to destination xlsx file
-      dest_ws.cell(row = i+row_start, column = j).value = c.value
+      # uses the convert_footnote function to convert any footnote references within the value
+      dest_ws.cell(row = i+row_start, column = j).value = convert_footnote(0, c.value)
           
       # set the color to black and copy font
       c.font = c.font.copy(color = 'FF000000')
