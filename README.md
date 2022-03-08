@@ -28,7 +28,7 @@ Pandas DataFrame data_coll
 | Feldname        | Beispiel                      | Beschreibung |
 | --------------- | ----------------------------- | ------------ |
 | id              | 1                             | Schlüsselfeld 
-| title           | Meteorologie                  | Titel der Tabellensammlung. Wird nicht im Output verwendet 
+| title           | Meteorologie                  | Titel der Tabellensammlung. Wird in den Metadaten-Titel der Datei gespeichert 
 | input_path      | O:/Output/JAMA/Tabellen/02_02 | Pfad welcher die einzelnen Excel-Datein enthält 
 | output_filename | Meteorologie.xlsx             | Name der zu erstellenden Datei 
 

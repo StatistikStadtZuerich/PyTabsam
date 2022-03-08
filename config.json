@@ -2,21 +2,19 @@
 	"collection": [
 		{
 			"title": "Meteorologie",
-			"input_path": "O:/Projekte/PyTabsam/Testfaelle-Input/02_02",
+			"input_path": "O:/Output/JB/Kap_Tabellensammlung/2021/02_02",
 			"output_filename": "Meteorologie.xlsx"
 		},
 		{
-			"title": "Luftqualitaet",
-			"input_path": "O:/Projekte/PyTabsam/Testfaelle-Input/07_03",
+			"title": "Luftqualität",
+			"input_path": "O:/Output/JB/Kap_Tabellensammlung/2021/07_03",
 			"output_filename": "Luftqualität.xlsx"
 		},
 		{
 			"title": "Abfallentsorgung",
-			"input_path": "O:/Projekte/PyTabsam/Testfaelle-Input/07_02",
+			"input_path": "O:/Output/JB/Kap_Tabellensammlung/2021/07_02",
 			"output_filename": "Abfallentsorgung.xlsx"
 		}
 	],
-	"path_output": "O:/Projekte/PyTabsam/Testfaelle-Output",
-	"path_log": "T:/PyTabsam",
-	"write_log_to_excel": true
+	"path_output": "O:/Projekte/PyTabsam/Testfaelle-Output"
 }

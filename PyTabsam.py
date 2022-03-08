@@ -267,9 +267,14 @@ def create_tabsam():
     tolog("INFO", "Writing collection to: " + row['output_filename'])
     filename = path_output + '/' + row['output_filename']
     shutil.copy('VorlageTabsam.xlsx', filename)
-      
-    # Fill in the creation date into the worksheet 'Inhalt' 
+    
+    # Open Excel file
     file = openpyxl.load_workbook(filename)
+
+    # Set metadata property title of file
+    file.properties.title = row['title']
+
+    # Fill in the creation date into the worksheet 'Inhalt' 
     sheet = file["Inhalt"]
     today = datetime.date.today()
     create_date = "Erstellt am: " + today.strftime("%d.%m.%Y")
@@ -430,9 +435,10 @@ def read_write_data(source_ws, dest_ws, row_start, sheet_id):
         dest_ws.cell(row = i+row_start, column = j).value = c.value
       
       # set the color to black and copy font
-      c.font = c.font.copy(color = 'FF000000')
+      # can throw deprecated warning: DeprecationWarning: Call to deprecated function copy (Use copy(obj) or cell.obj = cell.obj + other) 
+      c.font = c.font.copy(color='FF000000')
       dest_ws.cell(row = i+row_start, column = j).font = copy(c.font)
-          
+      
       # copy alignment
       dest_ws.cell(row = i+row_start, column = j).alignment = copy(c.alignment)
       
