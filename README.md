@@ -47,6 +47,96 @@ Folgende Packages müssen zur Verfügung stehen:
        
 ## Technische Dokumentation
 
+### Funktionen
+Die folgende Darstellung gibt eine Übersicht über die Funktionsweise und die im Code enthaltenen Funktionen:
+       
+```
+                                     +---------------------------------------------------------+
+                                     |                     PyTabsam main                       |
++-------------------------------+    |                                                         |    +---------------------------+
+| Ordner A                      |    | INPUT LESEN                  OUTPUT SCHREIBEN           |    | Excel A                   |
+|                               |    |                                                         |    |     Sheet "Erläuterungen" |
+|   +------------------------+  |    | read_coll_dir                create_tabsam              |    |     Sheet "T_1"           |
+|   | Excel T_1              |  |    | read_all_md_fn                +- create_worksheet_expl  |    |     Sheet "T_2"           |
+|   |     Sheet "Metadaten"  |  |    |  +- read_xls_metadata         +- create_worksheet       |    +---------------------------+
+|   |     Sheet "Internet"   |  |    |  +- read_xls_footnote            +- read_write_data     |
+|   |     Sheet "Fussnoten"  |  |    |                                     +- convert_footnote |    +---------------------------+
+|   +------------------------+  |    |                                  +- prepare_footnotes   |    | Excel B                   |
+|                               |    |                                  +- write_footnotes     |    .                           .
+|   +------------------------+  |    | HILFSFUNKTIONEN                                         |    .                           .
+|   | Excel T_2              |  |    |                                                         |
+|   |     Sheet "Metadaten"  |  |    | tolog, read_config, to_superscript                      |
+|   |     Sheet "Internet"   |  |    |                                                         |
+|   |     Sheet "Fussnoten"  |  |    +---------------------------------------------------------+
+|   +------------------------+  |
+|                               |
+|   +------------------------+  |
+|   | Erläuterungen          |  |
+|   |     Sheet "Internet"   |  |
+|   +------------------------+  |
+|                               |
++-------------------------------+ 
+
++-------------------------------+ 
+| Ordner B                      |
+.                               .
+.                               .
+```
+       
+#### main()
+Hauptprogramm, ruft alle anderen Funktionen auf
+
+#### tolog(level, text)
+Gibt Log-Informationen aus. Level ist INFO, WARNING oder ERROR
+
+#### read_config()
+Liest die Konfigurationsdatei config.json ein
+
+#### read_coll_dir()
+Öffnet jedes in der Konfiguration angegebene Collection-Verzeichnis und prüft ob relevante Dateinamen für Sheets und Explanation vorkommen. 
+
+#### read_all_md_fn()
+Loop über alle Metadaten und Fussnoten. Ruft read_xls_metadata und read_xls_footnote auf.
+       
+#### read_xls_metadata(sheet_id)
+Liest die Metadaten aus den Quell-Exceldateien ein
+
+#### read_xls_footnote(sheet_id, list_foot)
+Liest die Fussnoten aus den Quell-Exceldateien ein
+
+#### convert_footnote(sheet_id, input_string)
+Prüft ob der input_string eine Referenz zu einer Fussnote enthält. Nutzt to_superscript um Zahlen hochzustellen.
+       
+#### to_superscript(matchobj)
+Konvertiert einen Fussnotencode (z.B. #1) zu seinem hochgestellten Äquivalent. 
+Hinweis: Diese Funktion ist begrenzt auf die Zahlen von 1 bis 25. 
+
+#### prepare_footnotes(sheet_id)
+Überprüft, ob alle Fussnotendefinitionen genutzt wurden und erstellt eine Liste für den später generierten Output.
+
+#### write_footnotes(dest_ws, list_wsfn, row_start)
+Fügt verwendete Fussnotentexte ans Ende des aktuellen Excel-Tabellenblattes hinzu
+
+#### create_tabsam()
+Create and generate the destination excel files
+If the destination files already exists, they will be overwritten
+
+#### create_worksheet_expl(coll_ID, dest_file)
+Read the data from the source worksheet "Internet" and write it to the destination worksheet
+Copy all the format of the source worksheet "Internet"
+Write the titel in the table of content in the worksheet "Inhalt"
+Save the xlsx file
+
+#### create_worksheets(coll_ID, dest_file)
+Write the header of the sheet
+Read the data from the source worksheet "Internet" and write it to the destination worksheet
+Copy all the format of the source worksheet "Internet"
+Set the uniform row height to 12.75 for the common worksheet
+Write the titel in the table of content in the worksheet "Inhalt"
+Save the xlsx file
+
+#### read_write_data(source_ws, dest_ws, row_start, sheet_id):
+
        
        
 ### Tabellen 
