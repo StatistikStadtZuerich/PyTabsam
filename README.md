@@ -56,14 +56,14 @@ Die folgende Darstellung gibt eine Übersicht über die Funktionsweise und die i
 +-------------------------------+    |                                                         |    +---------------------------+
 | Ordner A                      |    | INPUT LESEN                  OUTPUT SCHREIBEN           |    | Excel A                   |
 |                               |    |                                                         |    |     Sheet "Erläuterungen" |
-|   +------------------------+  |    | read_coll_dir                create_tabsam              |    |     Sheet "T_1"           |
+|   +------------------------+  |    | read_coll_dir                create_tabsam              | -> |     Sheet "T_1"           |
 |   | Excel T_1              |  |    | read_all_md_fn                +- create_worksheet_expl  |    |     Sheet "T_2"           |
 |   |     Sheet "Metadaten"  |  |    |  +- read_xls_metadata         +- create_worksheet       |    +---------------------------+
 |   |     Sheet "Internet"   |  |    |  +- read_xls_footnote            +- read_write_data     |
-|   |     Sheet "Fussnoten"  |  |    |                                     +- convert_footnote |    +---------------------------+
+|   |     Sheet "Fussnoten"  |  | -> |                                     +- convert_footnote |    +---------------------------+
 |   +------------------------+  |    |                                  +- prepare_footnotes   |    | Excel B                   |
 |                               |    |                                  +- write_footnotes     |    .                           .
-|   +------------------------+  |    | HILFSFUNKTIONEN                                         |    .                           .
+|   +------------------------+  |    | HILFSFUNKTIONEN                                         | -> .                           .
 |   | Excel T_2              |  |    |                                                         |
 |   |     Sheet "Metadaten"  |  |    | tolog, read_config, to_superscript                      |
 |   |     Sheet "Internet"   |  |    |                                                         |
