@@ -9,11 +9,11 @@ Python Excel Tabellensammlung
 Es muss sichergestellt werden, dass keine Warnungen im Log vorhanden sind.
 
 #### Fehlender Text zur Fussnote
-Wenn in einer eingelesenen Tabelle im Tabellenblatt "Internet" ein Rautezeichen (#) gefolgt von einer Zahl gefunden wird (z.B. #1), dann wird dies als Fussnote interpretiert. PyTabsam prüft dann, ob im Tabellenblatt "Fussnoten" in der Spalte B mit dem gleichen Code gefunden wird. Es werden nur Fussnoten geprüft, welche in der Spalte A den Tag "<web>" enthalten. Falls in der Spalte A nicht "<web>" steht bzw. der Fussnoten-Code in der Spalte B nicht gefunden wird, dann wird folgende Warnung ausgegeben:
+Wenn in einer eingelesenen Tabelle im Tabellenblatt "Internet" ein Rautezeichen (#) gefolgt von einer Zahl gefunden wird (z.B. #1), dann wird dies als Fussnote interpretiert. PyTabsam prüft dann, ob im Tabellenblatt "Fussnoten" in der Spalte B ein Eintrag mit dem gleichen Code gefunden wird. Es werden nur Fussnoten geprüft, welche in der Spalte A den Tag "\<web\>" enthalten. Falls in der Spalte A nicht "\<web\>" steht bzw. der Fussnoten-Code in der Spalte B nicht gefunden wird, dann wird folgende Warnung ausgegeben:
 ```
 WARNING (2022-03-08 14:29:20): The footnote #1 was referenced, but not found in the worksheet Fussnoten of T_02.02.03.xlsm
 ```
-**Behebung:** Prüfen Sie in der Quelldatei die Übereinstimmung von Fussnoten in den Tabellenblättern "Fussnoten" und "Internet" und stellen sie sicher, dass "<web>" in der Spalte A des Tabellenblattes "Fussnoten" als Tag gesetzt ist.
+**Behebung:** Prüfen Sie in der Quelldatei die Übereinstimmung von Fussnoten in den Tabellenblättern "Fussnoten" und "Internet" und stellen sie sicher, dass "\<web\>" in der Spalte A des Tabellenblattes "Fussnoten" als Tag gesetzt ist.
        
 #### Fehlende Nutzung einer Fussnotendefinition
 Wenn eine Fussnote gemäss obiger Beschreibung korrekt im Tabellenblatt "Fussnoten" erfasst wurde, dieser Code aber weder in einem der Titel noch im Tabellenblatt "Internet" verwendet wird, dann wird folgende Warnung ausgegeben:
