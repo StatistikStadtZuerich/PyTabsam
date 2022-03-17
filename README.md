@@ -3,6 +3,20 @@ Python Excel Tabellensammlung
 
 ## Bedienungsanleitung
 
+### Steuerungsdatei config.json
+Die Steuerungsdatei config.json enthält die Konfiguration der Input- und Output-Dateien. Die Steuerungsdatei muss jeweils vor der Verarbeitung für die zur erstellenden Tabellensammlungen konfiguriert werden.
+
+#### title
+Der "title" wird in den Metadaten der Excel-Datei verwendet.
+
+#### input_path
+Der "input_path" setzt den Pfad auf das Quellverzeichnis für die entsprechende Tabellensammlung. Die Input-Dateien entsprechen den mit P-Transform erstellten Dateien. Der "input_path" kann auf die gewohnten Verzeichnisse z.B. "O:/Output/JB/Kap_Tabellensammlung/2021/07_03" gesetzt werden.
+
+#### output_filename
+Der "output_filename" setzt den Namen der Output-Datei.
+
+#### path_output
+Der "path_output" gibt das Ziel-Verzeichnis an, wohin die Output-Dateien geschrieben werden. Dabei ist zu beachten, dass bestehende Output-Dateien überschrieben werden. Es wird deshalb empfohlen eine temporäre Ablage zu verwenden.
 
 
 ### Warnungen
@@ -119,7 +133,7 @@ Fügt verwendete Fussnotentexte ans Ende des aktuellen Excel-Tabellenblattes hin
 
 #### create_tabsam()
 Erstellt und generiert die Zieldatei mit allen Tabellenblättern.
-Hinweis: Die Ziel-Datei wird überschrieben, falls sie bereits exisitiert.
+Hinweis: Die Zieldatei wird überschrieben, falls sie bereits exisitiert.
 
 #### create_worksheet_expl(coll_ID, dest_file)
 Erstellt das Tabellenblatt "Erläuterungen" falls dieses in der Quelldatei vorhanden ist.
