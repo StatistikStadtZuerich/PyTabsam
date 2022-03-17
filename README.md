@@ -7,7 +7,7 @@ Python Excel Tabellensammlung
 Die Steuerungsdatei config.json enthält die Konfiguration der Input- und Output-Dateien. Die Steuerungsdatei muss jeweils vor der Verarbeitung für die zur erstellenden Tabellensammlungen konfiguriert werden.
 
 #### title
-Der "title" wird in den Metadaten der Excel-Datei verwendet.
+Der "title" wird für die Metadaten der Excel-Datei verwendet. Dieser Titel ist ersichtlich in der Excel-Datei unter dem Menüpunkt "Datei-Informationen-Eigenschaften-Titel".
 
 #### input_path
 Der "input_path" setzt den Pfad auf das Quellverzeichnis für die entsprechende Tabellensammlung. Die Input-Dateien entsprechen den mit P-Transform erstellten Dateien. Der "input_path" kann auf die gewohnten Verzeichnisse z.B. "O:/Output/JB/Kap_Tabellensammlung/2021/07_03" gesetzt werden.
