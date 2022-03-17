@@ -125,14 +125,14 @@ Hinweis: Die Ziel-Datei wird überschrieben, falls sie bereits exisitiert.
 Erstellt das Tabellenblatt "Erläuterungen" falls dieses in der Quelldatei vorhanden ist.
 Liest die Daten von der Quelldatei im Tabellenblatt "Internet" und erstellt das Tabellenblatt in der Zieldatei.
 Die Formatierungen aus dem Tabellenblatt "Internet" der Quelldatei werden in die Zieldatei übernommen.
-Der Titel "Erläuterungen" wird im Inhaltsverzeichnis gesetzt
+Der Titel "Erläuterungen" wird im Inhaltsverzeichnis gesetzt.
 
 #### create_worksheets(coll_ID, dest_file)
 Erstellt alle Tabellenblätter aufgrund der vorhandenen Quelldateien.
 Zuerst wird der Header im Tabellenblatt aufgrund der Angaben im DataFrame data_sheet geschrieben.
 Liest die Daten von der Quelldatei im Tabellenblatt "Internet" und erstellt das Tabellenblatt in der Zieldatei.
 Die Formatierungen aus dem Tabellenblatt "Internet" der Quelldatei werden in die Zieldatei übernommen.
-Die Zeilenhöhe wird auf die einheitliche Höhe von 12.75 festgelegt
+Die Zeilenhöhe wird auf die einheitliche Höhe von 12.75 festgelegt.
 Die Angaben im Inhaltsverzeichnis werden ergänzt.
 
 #### read_write_data(source_ws, dest_ws, row_start, sheet_id):
