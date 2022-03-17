@@ -118,26 +118,28 @@ Hinweis: Diese Funktion ist begrenzt auf die Zahlen von 1 bis 25.
 Fügt verwendete Fussnotentexte ans Ende des aktuellen Excel-Tabellenblattes hinzu
 
 #### create_tabsam()
-Create and generate the destination excel files
-If the destination files already exists, they will be overwritten
+Erstellt und generiert die Zieldatei mit allen Tabellenblättern.
+Hinweis: Die Ziel-Datei wird überschrieben, falls sie bereits exisitiert.
 
 #### create_worksheet_expl(coll_ID, dest_file)
-Read the data from the source worksheet "Internet" and write it to the destination worksheet
-Copy all the format of the source worksheet "Internet"
-Write the titel in the table of content in the worksheet "Inhalt"
-Save the xlsx file
+Erstellt das Tabellenblatt "Erläuterungen" falls dieses in der Quelldatei vorhanden ist.
+Liest die Daten von der Quelldatei im Tabellenblatt "Internet" und erstellt das Tabellenblatt in der Zieldatei.
+Die Formatierungen aus dem Tabellenblatt "Internet" der Quelldatei werden in die Zieldatei übernommen.
+Der Titel "Erläuterungen" wird im Inhaltsverzeichnis gesetzt
 
 #### create_worksheets(coll_ID, dest_file)
-Write the header of the sheet
-Read the data from the source worksheet "Internet" and write it to the destination worksheet
-Copy all the format of the source worksheet "Internet"
-Set the uniform row height to 12.75 for the common worksheet
-Write the titel in the table of content in the worksheet "Inhalt"
-Save the xlsx file
+Erstellt alle Tabellenblätter aufgrund der vorhandenen Quelldateien.
+Zuerst wird der Header im Tabellenblatt aufgrund der Angaben im DataFrame data_sheet geschrieben.
+Liest die Daten von der Quelldatei im Tabellenblatt "Internet" und erstellt das Tabellenblatt in der Zieldatei.
+Die Formatierungen aus dem Tabellenblatt "Internet" der Quelldatei werden in die Zieldatei übernommen.
+Die Zeilenhöhe wird auf die einheitliche Höhe von 12.75 festgelegt
+Die Angaben im Inhaltsverzeichnis werden ergänzt.
 
 #### read_write_data(source_ws, dest_ws, row_start, sheet_id):
+Die Daten aus dem Tabellenblatt "Internet" in der Quelldatei werden zeilenweise gelesen und in das Tabellenblatt
+der Zieldatei geschrieben.
+Die Formatierungen aus dem Tabellenblatt "Internet" der Quelldatei werden in die Zieldatei übernommen.
 
-       
        
 ### Tabellen 
 
