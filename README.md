@@ -1,8 +1,8 @@
 # PyTabsam
-PyTabsam ist die Python Excel Tabellensammlung, welche die bestehende Visual Basic Lösung ablöst. In wenigen Worten kann der Prozess wie folgt beschrieben werden.
+PyTabsam ist die Python Excel Tabellensammlung, welche die bestehende Visual Basic Lösung ablöst. In wenigen Worten kann der Prozessablauf wie folgt beschrieben werden.
 
 ### Einlesen der Steuerungsdatei
-Die Steuerungsdatei wird gelesen und die Tabelle "collection" (Pandas DataFrame data_coll) mit den entsprechenden Werten geschrieben.
+Die Steuerungsdatei config.json wird eingelesen und die Tabelle "collection" (Pandas DataFrame data_coll) mit den entsprechenden Werten geschrieben.
 
 ### Einlesen der Metadaten pro Tabellensammlung
 Für jede Tabellensammlung werden die Metadaten aller Input-Dateien gelesen und in die Tabelle "sheet" (Pandas DataFrame data_sheet) geschrieben. Falls Erläuterungen vorhanden sind, werden diese in die Tabelle "explanation" (Pandas DataFrame data_expl) geschrieben.
@@ -10,8 +10,8 @@ Für jede Tabellensammlung werden die Metadaten aller Input-Dateien gelesen und 
 ### Einlesen der Fussnoten
 Für jede Tabellensammlung werden die Fussnoten aller Input-Dateien gelesen und in die Tabelle "footnote" (Pandas DataFrame data_foot) geschrieben. Fehlerhafte Fussnoten werden mit einem Log-Eintrag ausgewiesen und müssen in den Quelldateien korrigiert werden.
 
-### Kopieren der Vorlage und Befüllen der Inhalte der Tabellenblätter pro Tabellensammlung
-Die Vorlage für eine Tabellensammlung wird kopiert. Aufgrund der Informationen aus den im Vorfeld erstellten Tabellen werden alle Tabellenblätter inklusive Inhaltsverzeichnis und falls vorhanden der Erläuterungen generiert. Im gleichen Durchlauf pro collection werden die Daten aus dem Tabellenblatt "Internet" der Quelldateien gelesen und in der Zieldatei eingefügt. Dabei werden auch die Formatierungen pro Tabellenblatt aus der Quelldatei übernommen und bei Bedarf an das Ziel angepasst (z.B. Schriftfarbe). Die Fussnoten werden gemäss der Tabelle data_foot ebenfalls pro Tabellenblatt aufbereitet und geschrieben.
+### Kopieren der Vorlage und Befüllen der Inhalte aller Tabellenblätter pro Tabellensammlung
+Die Vorlage "VorlageTabsam.xlsx" für eine Tabellensammlung wird für die Verarbeitung kopiert. Aufgrund der Informationen aus den im Vorfeld erstellten Tabellen werden alle Tabellenblätter inklusive Inhaltsverzeichnis und falls vorhanden der Erläuterungen generiert. Im gleichen Durchlauf pro collection-Eintrag (DataFrame data_coll) werden die Daten aus dem Tabellenblatt "Internet" der Quelldateien gelesen und in die Tabellenblätter der Zieldatei eingefügt. Dabei werden auch die Formatierungen pro Tabellenblatt aus der Quelldatei übernommen und bei Bedarf an das Ziel angepasst (z.B. Schriftfarbe). Die Fussnoten werden gemäss der Tabelle data_foot ebenfalls pro Tabellenblatt aufbereitet und geschrieben.
 
 ### Tabellen und DataFrames 
 Die für die Verarbeitung zentralen Tabellen und DataFrames werden unten im Detail beschrieben.
