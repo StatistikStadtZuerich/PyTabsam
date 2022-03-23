@@ -26,11 +26,14 @@ Die Steuerungsdatei config.json enthält die Konfiguration der Input- und Output
 #### title
 Der "title" wird für die Metadaten der Excel-Datei verwendet. Dieser Titel ist ersichtlich in der Excel-Datei unter dem Menüpunkt "Datei-Informationen-Eigenschaften-Titel".
 
-#### input_path
-Der "input_path" setzt den Pfad auf das Quellverzeichnis für die entsprechende Tabellensammlung. Die Input-Dateien entsprechen den mit P-Transform erstellten Dateien. Der "input_path" kann auf die gewohnten Verzeichnisse z.B. "O:/Output/JB/Kap_Tabellensammlung/2021/07_03" gesetzt werden.
+#### input_subpath
+Der "input_subpath" setzt das Unterverzeichnis für das Quellverzeichnis der entsprechenden Tabellensammlung. Der Pfad wird ohne Schrägstriche angegeben. Er wird mit dem untenstehenden "path_input" und einem zusätzlichen Schrägstrich zusammengesetzt. In diesem Verzeichnis liegen die mit P-Transform erstellten Input-Dateien. Der "path_input" und "input_subpath" können auf die gewohnten Verzeichnisse z.B. "O:/Output/JB/Kap_Tabellensammlung/2021" und "07_03" gesetzt werden.
 
 #### output_filename
 Der "output_filename" setzt den Namen der Output-Datei.
+
+#### path_input
+Der "path_input" setzt den Basispfad auf das Quellverzeichnis für alle Tabellensammlungen. Der Pfad muss ohne abschliessenden Schrägstrich angegeben werden. 
 
 #### path_output
 Der "path_output" gibt das Ziel-Verzeichnis an, wohin die Output-Dateien geschrieben werden. Dabei ist zu beachten, dass bestehende Output-Dateien überschrieben werden. Es wird deshalb empfohlen eine temporäre Ablage zu verwenden.
