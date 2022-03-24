@@ -1,21 +1,11 @@
 {
 	"collection": [
 		{
-			"title": "Landwirtschaft",
-			"input_subpath": "03_01",
-			"output_filename": "Landwirtschaft.xlsx"
-		},
-		{
-			"title": "Erwerbstätigkeit",
-			"input_subpath": "03_02",
-			"output_filename": "Erwerbstaetigkeit.xlsx"
-		},
-		{
-			"title": "Betreibungen und Konkurse",
-			"input_subpath": "03_04",
-			"output_filename": "Betreibungen_und_Konkurse.xlsx"
+			"title": "Banken und Versicherungen",
+			"input_subpath": "12_01",
+			"output_filename": "Banken_und_Versicherungen.xlsx"
 		}
 	],
-	"path_input": "O:/Output/JB/Kap_Tabellensammlung/2021",
+	"path_input": "O:/Output/JB/Kap_Tabellensammlung/2022",
 	"path_output": "O:/Projekte/PyTabsam/Testfaelle-Output"
 }
