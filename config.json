@@ -19,3 +19,191 @@
 	"path_input": "O:/Output/JB/Kap_Tabellensammlung/2021",
 	"path_output": "O:/Projekte/PyTabsam/Testfaelle-Output"
 }
+
+
+{
+	"all_collection": [
+		{
+			"title": "Meteorologie",
+			"input_subpath": "02_02",
+			"output_filename": "Meteorologie.xlsx"
+		},
+		{
+			"title": "Landwirtschaft",
+			"input_subpath": "03_01",
+			"output_filename": "Landwirtschaft.xlsx"
+		},
+		{
+			"title": "Erwerbstätigkeit",
+			"input_subpath": "03_02",
+			"output_filename": "Erwerbstaetigkeit.xlsx"
+		},
+		{
+			"title": "Betreibungen und Konkurse",
+			"input_subpath": "03_04",
+			"output_filename": "Betreibungen_und_Konkurse.xlsx"
+		},
+		{
+			"title": "Stadtentwässerung",
+			"input_subpath": "07_01",
+			"output_filename": "Stadtentwaesserung.xlsx"
+		},
+		{
+			"title": "Abfallentsorgung",
+			"input_subpath": "07_02",
+			"output_filename": "Abfallentsorgung.xlsx"
+		},
+		{
+			"title": "Luftqualität",
+			"input_subpath": "07_03",
+			"output_filename": "Luftqualität.xlsx"
+		},
+		{
+			"title": "Gewässer der Stadt Zürich",
+			"input_subpath": "08_01",
+			"output_filename": "Gewaesser_der_Stadt_Zuerich.xlsx"
+		},
+		{
+			"title": "Wasserversorgung",
+			"input_subpath": "08_02",
+			"output_filename": "Wasserversorgung.xlsx"
+		},
+		{
+			"title": "Energiestatistik",
+			"input_subpath": "08_03",
+			"output_filename": "Energiestatistik.xlsx"
+		},
+		{
+			"title": "Strom, Wärme und Gas",
+			"input_subpath": "08_04",
+			"output_filename": "Strom_Waerme_und_Gas.xlsx"
+		},
+		{
+			"title": "Parkplätze",
+			"input_subpath": "11_01",
+			"output_filename": "Parkplaetze.xlsx"
+		},
+		{
+			"title": "Strassenverkehrsunfälle",
+			"input_subpath": "11_02",
+			"output_filename": "Strassenverkehrsunfaelle.xlsx"
+		},
+		{
+			"title": "Schienen-, Luft- und Wasserverkehr",
+			"input_subpath": "11_03",
+			"output_filename": "Schienen-_Luft-_und_Wasserverkehr.xlsx"
+		},
+		{
+			"title": "Fuss- und Veloverkehr",
+			"input_subpath": "11_04",
+			"output_filename": "Fuss-_und_Veloverkehr.xlsx"
+		},
+		{
+			"title": "Banken und Versicherungen",
+			"input_subpath": "12_01",
+			"output_filename": "Banken_und_Versicherungen.xlsx"
+		},
+		{
+			"title": "Staedtisches Personal",
+			"input_subpath": "13_01",
+			"output_filename": "Staedtisches_Personal.xlsx"
+		},
+		{
+			"title": "Schutz und Rettung",
+			"input_subpath": "13_02",
+			"output_filename": "Schutz_und_Rettung.xlsx"
+		},
+		{
+			"title": "Wirtschaftliche Hilfe",
+			"input_subpath": "14_01",
+			"output_filename": "Wirtschaftliche_Hilfe.xlsx"
+		},
+		{
+			"title": "Persönliche Hilfe",
+			"input_subpath": "14_02",
+			"output_filename": "Persoenliche_Hilfe.xlsx"
+		},
+		{
+			"title": "Jugend- und Familienhilfe",
+			"input_subpath": "14_03",
+			"output_filename": "Jugend-_und_Familienhilfe.xlsx"
+		},
+		{
+			"title": "Zusatzleistungen zur AHV/IV und öffentliche Pflegebeitraege",
+			"input_subpath": "14_04",
+			"output_filename": "Zusatzleistungen_zur_AHV_IV_und_oeffentliche_Pflegebeitraege.xlsx"
+		},
+		{
+			"title": "Berufsberatung",
+			"input_subpath": "14_05",
+			"output_filename": "Berufsberatung.xlsx"
+		},
+		{
+			"title": "Gesundheitswesen",
+			"input_subpath": "14_06",
+			"output_filename": "Gesundheitswesen.xlsx"
+		},
+		{
+			"title": "Unterricht im Vorschul- und Schulalter",
+			"input_subpath": "15_01",
+			"output_filename": "Unterricht_im_Vorschul-_und_Schulalter.xlsx"
+		},
+		{
+			"title": "Mittelschulen und Berufsbildung",
+			"input_subpath": "15_02",
+			"output_filename": "Mittelschulen_und_Berufsbildung.xlsx"
+		},
+		{
+			"title": "Jugend- und Erwachsenenbildung",
+			"input_subpath": "15_03",
+			"output_filename": "Jugend-_und_Erwachsenenbildung.xlsx"
+		},
+		{
+			"title": "Hochschulen",
+			"input_subpath": "15_04",
+			"output_filename": "Hochschulen.xlsx"
+		},
+		{
+			"title": "Opernhaus, Theater, Konzerte und Kinos",
+			"input_subpath": "16_01",
+			"output_filename": "Opernhaus_Theater_Konzerte_und_Kinos.xlsx"
+		},
+		{
+			"title": "Zoo, Sukkulenten-Sammlung, Museen, Messen und Ausstellungen",
+			"input_subpath": "16_02",
+			"output_filename": "Zoo_Sukkulenten-Sammlung_Museen_Messen_und_Ausstellungen.xlsx"
+		},
+		{
+			"title": "Sport",
+			"input_subpath": "16_03",
+			"output_filename": "Sport.xlsx"
+		},
+		{
+			"title": "Mediennutzung",
+			"input_subpath": "16_04",
+			"output_filename": "Mediennutzung.xlsx"
+		},
+		{
+			"title": "Wahlen",
+			"input_subpath": "17_02",
+			"output_filename": "Wahlen.xlsx"
+		},
+		{
+			"title": "Steuern",
+			"input_subpath": "18_01",
+			"output_filename": "Steuern.xlsx"
+		},
+		{
+			"title": "Städtische Rechnung nach HRM2",
+			"input_subpath": "18_02",
+			"output_filename": "Staedtische_Rechnung_nach_HRM2.xlsx"
+		},
+		{
+			"title": "Rechtsprechung",
+			"input_subpath": "19_02",
+			"output_filename": "Rechtsprechung.xlsx"
+		}
+	],
+	"path_input": "O:/Output/JB/Kap_Tabellensammlung/2021",
+	"path_output": "O:/Projekte/PyTabsam/Testfaelle-Output"
+}
