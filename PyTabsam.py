@@ -12,9 +12,6 @@ import shutil
 import datetime
 from copy import copy
 
-# @Hansjörg: Diese Seite könnte interessant sein um Inhalte zu kopieren:
-# https://stackoverflow.com/questions/42344041/how-to-copy-worksheet-from-one-workbook-to-another-one-using-openpyxl
-
 # Leere Listen vorbereiten
 data_coll  = pd.DataFrame([],dtype=pd.StringDtype())
 count_sheet = 0
@@ -23,7 +20,8 @@ count_expl = 0
 data_expl  = pd.DataFrame([],dtype=pd.StringDtype())
 count_foot = 0
 data_foot  = pd.DataFrame([],dtype=pd.StringDtype())
-# Global varible from configuration
+# Global variable from configuration
+path_input = ""
 path_output = ""
 
 # Function tolog
@@ -40,8 +38,9 @@ def read_config():
   with open('config.json', 'r', encoding="utf-8") as f:
     config = json.load(f)
     list_coll = []
-    global data_coll, path_output
+    global data_coll, path_input, path_output
     
+    path_input  = config['path_input']
     path_output = config['path_output']
     
     for key in config:
@@ -51,7 +50,8 @@ def read_config():
         for i in range(len(conf_value)):
           coll_elem = conf_value[i]
           pk = i+1
-          elem_list_coll = [pk, coll_elem["title"], coll_elem["input_path"], coll_elem["output_filename"]]
+          input_fullpath = path_input + "/" + coll_elem["input_subpath"]
+          elem_list_coll = [pk, coll_elem["title"], input_fullpath, coll_elem["output_filename"]]
           list_coll.append(elem_list_coll)
           data_coll = pd.DataFrame(list_coll, columns = ['id', 'title' , 'input_path', 'output_filename'])
 

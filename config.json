@@ -1,20 +1,11 @@
 {
 	"collection": [
 		{
-			"title": "Meteorologie",
-			"input_path": "O:/Output/JB/Kap_Tabellensammlung/2021/02_02",
-			"output_filename": "Meteorologie.xlsx"
-		},
-		{
-			"title": "Luftqualität",
-			"input_path": "O:/Output/JB/Kap_Tabellensammlung/2021/07_03",
-			"output_filename": "Luftqualität.xlsx"
-		},
-		{
-			"title": "Abfallentsorgung",
-			"input_path": "O:/Output/JB/Kap_Tabellensammlung/2021/07_02",
-			"output_filename": "Abfallentsorgung.xlsx"
+			"title": "Banken und Versicherungen",
+			"input_subpath": "12_01",
+			"output_filename": "Banken_und_Versicherungen.xlsx"
 		}
 	],
+	"path_input": "O:/Output/JB/Kap_Tabellensammlung/2022",
 	"path_output": "O:/Projekte/PyTabsam/Testfaelle-Output"
 }
