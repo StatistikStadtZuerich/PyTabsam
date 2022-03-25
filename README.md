@@ -1,7 +1,5 @@
 # PyTabsam
 
-TestStalder
-
 ## Zweck und grober Ablauf
 PyTabsam ist ein Python-Skript zur Erstellung von Excel Tabellensammlungen, welche die bestehende Visual Basic Lösung von Statistik Stadt Zürich ablöst. 
 PyTabsam erstellt aus einzelnen standardisierten Excel-Dateien in einem Verzeichnis eine zusammengefasste Excel-Datei mit mehreren Tabellenblättern.
