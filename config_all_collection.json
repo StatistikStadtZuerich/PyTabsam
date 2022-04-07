@@ -33,7 +33,7 @@
 		{
 			"title": "Luftqualität",
 			"input_subpath": "07_03",
-			"output_filename": "Luftqualität.xlsx"
+			"output_filename": "Luftqualitaet.xlsx"
 		},
 		{
 			"title": "Gewässer der Stadt Zürich",
