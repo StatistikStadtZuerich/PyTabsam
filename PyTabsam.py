@@ -69,29 +69,40 @@ def read_coll_dir():
     collection_id   = row['id']
     collection_path = row['input_path']
     tolog("INFO", "Reading collection from: " + collection_path)
-    # get a list of all the files in the directory
-    files = [file for file in os.listdir(collection_path)]
-    for filename in files:
-      is_expl = re.match(r'T_\d+.\d+.\d+.Erläuterungen.xlsm', filename)
-      # Regular Expressen for an excel file containing an explanation
-      # Example: T_02.02.0.Erläuterungen.xlsm
-      is_sheet = re.match(r'(T_|T_G)\d+.\d+.\d+(.xlsm|.\d+.xlsm|\w.xlsm)', filename)
-      # Regular Expressen for an excel file containing data
-      # Examples: T_02.02.03.xlsm, T_02.02.01.2017.xlsm, T_G03.03.01.xlsm, T_G07.03.05a
 
-      # The filename matches an explanation
-      if is_expl:
-        count_expl += 1
-        elem_list_expl = [count_expl, collection_id, filename, collection_path]
-        list_expl.append(elem_list_expl)
-      # The filename matches a worksheet with data
-      elif is_sheet:
-        count_sheet += 1
-        sheet_name = filename.replace('.xlsm', '').replace('_', '')
-        elem_list_sheet = [count_sheet, collection_id, filename, collection_path, sheet_name]
-        list_sheet.append(elem_list_sheet)
+
+    # Get list of all files only in the given directory
+    list_of_files = filter( lambda x: os.path.isfile(os.path.join(collection_path, x)),
+                            os.listdir(collection_path) )
+    # Create a list of files in directory along with the size
+    files_with_size = [ (file_name, os.stat(os.path.join(collection_path, file_name)).st_size) 
+                        for file_name in list_of_files  ]
+    # Iterate over list of files along with size 
+    # and print them one by one.
+    for filename, size in files_with_size:
+      if size>600000:
+        tolog("WARNING", "File " + filename + " in " + collection_path + " is larger than 600KB and may be damaged. It will be ignored.")
       else:
-        tolog("WARNING", "File " + filename + " in " + collection_path + " has an invalid filename. It will be ignored.")
+        is_expl = re.match(r'T_\d+.\d+.\d+.Erläuterungen.xlsm', filename)
+        # Regular Expressen for an excel file containing an explanation
+        # Example: T_02.02.0.Erläuterungen.xlsm
+        is_sheet = re.match(r'(T_|T_G)\d+.\d+.\d+(.xlsm|.\d+.xlsm|\w.xlsm)', filename)
+        # Regular Expressen for an excel file containing data
+        # Examples: T_02.02.03.xlsm, T_02.02.01.2017.xlsm, T_G03.03.01.xlsm, T_G07.03.05a
+  
+        # The filename matches an explanation
+        if is_expl:
+          count_expl += 1
+          elem_list_expl = [count_expl, collection_id, filename, collection_path]
+          list_expl.append(elem_list_expl)
+        # The filename matches a worksheet with data
+        elif is_sheet:
+          count_sheet += 1
+          sheet_name = filename.replace('.xlsm', '').replace('_', '')
+          elem_list_sheet = [count_sheet, collection_id, filename, collection_path, sheet_name]
+          list_sheet.append(elem_list_sheet)
+        else:
+          tolog("WARNING", "File " + filename + " in " + collection_path + " has an invalid filename. It will be ignored.")
         
     data_expl  = pd.DataFrame(list_expl, columns = ['ID', 'FK_collection', 'filename', 'directory'])
     data_sheet = pd.DataFrame(list_sheet, columns = ['ID', 'FK_collection', 'filename', 'directory', 'sheet_name'])

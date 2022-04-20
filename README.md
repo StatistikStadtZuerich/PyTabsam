@@ -56,6 +56,13 @@ WARNING (2022-03-08 14:29:27): The footnote #4 is not used, but was found in the
 ```
 **Behebung:** Prüfen Sie in der Quelldatei die Übereinstimmung von Fussnoten in den Tabellenblättern "Fussnoten" und "Internet". 
 
+#### Excel-Datei zu gross
+Wenn eine einzulesende Excel-Datei grösser als 600KB ist, kann sie in der Regel nicht verarbeitet werden, weil sie fehlerhaft ist. Deshalb werden solche Dateien von der Verarbeitung ausgeschlossen. Folgende Warnung wird ausgegeben:
+```
+WARNING (2022-04-20 15:34:41): File T_12.01.01.2018.xlsm in O:/Output/JB/Kap_Tabellensammlung/2022/12_01 is larger than 600KB and may be damaged. It will be ignored.
+```
+**Behebung:** Prüfen Sie die Quelldatei und ob diese vollständig ist. Speichern Sie die Datei erneut ab und stellen Sie sicher, dass die neue Dateigrösse kleiner als 600KB ist. 
+
 ## Installation
 
 ### Pillow 
