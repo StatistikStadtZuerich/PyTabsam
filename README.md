@@ -150,7 +150,7 @@ Prüft ob der input_string eine Referenz zu einer Fussnote enthält. Nutzt to_su
        
 #### to_superscript(matchobj)
 Konvertiert einen Fussnotencode (z.B. #1) zu seinem hochgestellten Äquivalent. 
-Hinweis: Diese Funktion ist begrenzt auf die Zahlen von 1 bis 25. 
+Hinweis: Diese Funktion ist begrenzt auf die Zahlen von 1 bis 50. 
 
 #### prepare_footnotes(sheet_id)
 Überprüft, ob alle Fussnotendefinitionen genutzt wurden und erstellt eine Liste für den später generierten Output.
