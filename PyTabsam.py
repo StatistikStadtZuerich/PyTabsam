@@ -86,9 +86,9 @@ def read_coll_dir():
         is_expl = re.match(r'T_\d+.\d+.\d+.Erläuterungen.xlsm', filename)
         # Regular Expressen for an excel file containing an explanation
         # Example: T_02.02.0.Erläuterungen.xlsm
-        is_sheet = re.match(r'(T_|T_G)\d+.\d+.\d+(.xlsm|.\d+.xlsm|\w.xlsm)', filename)
+        is_sheet = re.match(r'(T_|T_G)\d+.\d+.\d+(.xlsm|.\d+.xlsm|\w.xlsm|\w.\d+.xlsm)', filename)
         # Regular Expressen for an excel file containing data
-        # Examples: T_02.02.03.xlsm, T_02.02.01.2017.xlsm, T_G03.03.01.xlsm, T_G07.03.05a
+        # Examples: T_02.02.03.xlsm, T_02.02.01.2017.xlsm, T_G03.03.01.xlsm, T_G07.03.05a, T_11.01.16b.2017.xlsm
   
         # The filename matches an explanation
         if is_expl:
