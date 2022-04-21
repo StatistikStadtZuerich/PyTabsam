@@ -375,7 +375,7 @@ def create_worksheets(coll_ID, dest_file):
         # define the row, where the content starts
         row_start = 8
       if(row['subtitle1'] != "None" and row['subtitle2'] == "None"):
-        dest_ws.cell(row=3, column=1).value = row['subtitle1']
+        dest_ws.cell(row=3, column=1).value = convert_footnote(row["ID"], row['subtitle1'])
         dest_ws.cell(row=3, column=1).font = Font(name='Arial', size=8)
         dest_ws.cell(row=5, column=1).value = "Quelle: " + row['source']
         dest_ws.cell(row=5, column=1).font = Font(name='Arial', size=8)
@@ -383,7 +383,7 @@ def create_worksheets(coll_ID, dest_file):
         # define the row, where the content starts
         row_start = 7
       if(row['subtitle1'] == "None" and row['subtitle2'] != "None"):
-        dest_ws.cell(row=3, column=1).value = row['subtitle2']
+        dest_ws.cell(row=3, column=1).value = convert_footnote(row["ID"], row['subtitle2'])
         dest_ws.cell(row=3, column=1).font = Font(name='Arial', size=8)
         dest_ws.cell(row=5, column=1).value = "Quelle: " + row['source']
         dest_ws.cell(row=5, column=1).font = Font(name='Arial', size=8)
