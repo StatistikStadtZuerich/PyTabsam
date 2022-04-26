@@ -370,6 +370,15 @@ def create_worksheets(coll_ID, dest_file):
       dest_wb = openpyxl.load_workbook(dest_file)
       dest_ws = dest_wb.create_sheet(row['sheet_name'])
       
+      # If the table code is empty, write a warning
+      if(row['code'] == "None"):
+        tolog("WARNING", "The table code is empty in File " + source_xlsx + ". Please fill in the table code in the source file.")
+
+      # If the title is empty, write a warning
+      if(row['title'] == "None"):
+        tolog("WARNING", "The title is empty in File " + source_xlsx + ". Please fill in the title in the source file.")
+        title_toc = ""
+      
       # Write the code, title, subtitle1, subtitle2, source
       dest_ws.cell(row=1, column=1).value = row['code']
       dest_ws.cell(row=1, column=1).font = Font(name='Arial', size=8)
@@ -383,25 +392,21 @@ def create_worksheets(coll_ID, dest_file):
         dest_ws.cell(row=6, column=1).value = "Quelle: " + row['source']
         dest_ws.cell(row=6, column=1).font = Font(name='Arial', size=8)
         title_toc = row['title_wfn'] + ", " + row['subtitle1_wfn'] + ", " + row['subtitle2_wfn']
-        # define the row, where the content starts
-        row_start = 8
       if(row['subtitle1'] != "None" and row['subtitle2'] == "None"):
         dest_ws.cell(row=3, column=1).value = convert_footnote(row["ID"], row['subtitle1'])
         dest_ws.cell(row=3, column=1).font = Font(name='Arial', size=8)
-        dest_ws.cell(row=5, column=1).value = "Quelle: " + row['source']
-        dest_ws.cell(row=5, column=1).font = Font(name='Arial', size=8)
+        dest_ws.cell(row=6, column=1).value = "Quelle: " + row['source']
+        dest_ws.cell(row=6, column=1).font = Font(name='Arial', size=8)
         title_toc = row['title_wfn'] + ", " + row['subtitle1_wfn']
-        # define the row, where the content starts
-        row_start = 7
       if(row['subtitle1'] == "None" and row['subtitle2'] != "None"):
         dest_ws.cell(row=3, column=1).value = convert_footnote(row["ID"], row['subtitle2'])
         dest_ws.cell(row=3, column=1).font = Font(name='Arial', size=8)
-        dest_ws.cell(row=5, column=1).value = "Quelle: " + row['source']
-        dest_ws.cell(row=5, column=1).font = Font(name='Arial', size=8)
+        dest_ws.cell(row=6, column=1).value = "Quelle: " + row['source']
+        dest_ws.cell(row=6, column=1).font = Font(name='Arial', size=8)
         title_toc = row['title_wfn'] + ", " + row['subtitle2_wfn']
-        # define the row, where the content starts
-        row_start = 7
-      
+
+      # define the row, where the content starts
+      row_start = 8      
       # Read the data from the source worksheet and write it to the destination worksheet
       # Copy all the format of the source worksheet "Internet"
       last_row = read_write_data(source_ws, dest_ws, row_start, row['ID'])

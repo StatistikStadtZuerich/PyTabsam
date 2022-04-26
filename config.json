@@ -1,9 +1,9 @@
 {
 	"collection": [
 		{
-			"title": "Banken und Versicherungen",
-			"input_subpath": "12_01",
-			"output_filename": "Banken_und_Versicherungen.xlsx"
+			"title": "Luftqualität",
+			"input_subpath": "07_03",
+			"output_filename": "Luftqualitaet.xlsx"
 		}
 	],
 	"path_input": "O:/Output/JB/Kap_Tabellensammlung/2022",
