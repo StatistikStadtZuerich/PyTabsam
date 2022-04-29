@@ -8,6 +8,7 @@ import os # operating system
 import re # regular expressions
 import openpyxl
 from openpyxl.styles import Font
+from openpyxl.styles import Alignment
 import shutil
 import datetime
 from copy import copy
@@ -323,6 +324,12 @@ def create_worksheet_expl(coll_ID, dest_file):
       source_wb = openpyxl.load_workbook(source_xlsx)
       source_ws = source_wb["Internet"]
       
+      print(source_ws)
+      
+      # Check if the content in the source file is not empty
+      if [cell.value for cells in source_ws.rows for cell in cells] == [None]:
+        tolog("WARNING", "The worksheet Internet is empty in File " + source_xlsx + ". Please fill in the content in the source file.")
+
       # Opening the destination xlsx and create the new worksheet
       dest_wb = openpyxl.load_workbook(dest_file)
       dest_ws = dest_wb.create_sheet("Erläuterungen")
@@ -366,6 +373,12 @@ def create_worksheets(coll_ID, dest_file):
       source_wb = openpyxl.load_workbook(source_xlsx)
       source_ws = source_wb["Internet"]
 
+      print(source_ws)
+
+      # Check if the content in the source file is not empty
+      if [cell.value for cells in source_ws.rows for cell in cells] == "":
+        tolog("WARNING", "The worksheet Internet is empty in File " + source_xlsx + ". Please fill in the content in the source file.")
+
       # Opening the destination xlsx and create the new worksheet
       dest_wb = openpyxl.load_workbook(dest_file)
       dest_ws = dest_wb.create_sheet(row['sheet_name'])
@@ -384,27 +397,74 @@ def create_worksheets(coll_ID, dest_file):
       dest_ws.cell(row=1, column=1).font = Font(name='Arial', size=8)
       dest_ws.cell(row=2, column=1).value = convert_footnote(row["ID"], row['title'])
       dest_ws.cell(row=2, column=1).font = Font(name='Arial', size=8)
+      #
+      # Worksheet with subtitle1 and subtitle2
+      #
       if(row['subtitle1'] != "None" and row['subtitle2'] != "None"):
+
+        # Prepare subtitle1
         dest_ws.cell(row=3, column=1).value = convert_footnote(row["ID"], row['subtitle1'])
         dest_ws.cell(row=3, column=1).font = Font(name='Arial', size=8)
+        # If subtitle1 is only a year value, then convert the year to int
+        is_year_only_sub1 = re.match(r'^(18|19|20|21)[0-9]{2}$', row['subtitle1'])
+        if is_year_only_sub1:
+          dest_ws.cell(row=3, column=1).value = int(convert_footnote(row["ID"], row['subtitle1']))
+          dest_ws.cell(row=3, column=1).alignment = Alignment(horizontal="left")  
+        
+        # Prepare subtitle2
         dest_ws.cell(row=4, column=1).value = convert_footnote(row["ID"], row['subtitle2'])
         dest_ws.cell(row=4, column=1).font = Font(name='Arial', size=8)
+        # If subtitle2 is only a year value, then convert the year to int
+        is_year_only_sub2 = re.match(r'^(18|19|20|21)[0-9]{2}$', row['subtitle2'])
+        if is_year_only_sub2:
+          dest_ws.cell(row=4, column=1).value = int(convert_footnote(row["ID"], row['subtitle2']))
+          dest_ws.cell(row=4, column=1).alignment = Alignment(horizontal="left")
+
         dest_ws.cell(row=6, column=1).value = "Quelle: " + row['source']
         dest_ws.cell(row=6, column=1).font = Font(name='Arial', size=8)
         title_toc = row['title_wfn'] + ", " + row['subtitle1_wfn'] + ", " + row['subtitle2_wfn']
+      #
+      # Worksheet with subtitle1
+      #
       if(row['subtitle1'] != "None" and row['subtitle2'] == "None"):
+
+        # Prepare subtitle1
         dest_ws.cell(row=3, column=1).value = convert_footnote(row["ID"], row['subtitle1'])
         dest_ws.cell(row=3, column=1).font = Font(name='Arial', size=8)
+        # If subtitle1 is only a year value, then convert the year to int
+        is_year_only_sub1 = re.match(r'^(18|19|20|21)[0-9]{2}$', row['subtitle1'])
+        if is_year_only_sub1:
+          dest_ws.cell(row=3, column=1).value = int(convert_footnote(row["ID"], row['subtitle1']))
+          dest_ws.cell(row=3, column=1).alignment = Alignment(horizontal="left")  
+
         dest_ws.cell(row=6, column=1).value = "Quelle: " + row['source']
         dest_ws.cell(row=6, column=1).font = Font(name='Arial', size=8)
         title_toc = row['title_wfn'] + ", " + row['subtitle1_wfn']
+      #
+      # Worksheet with subtitle2
+      #
       if(row['subtitle1'] == "None" and row['subtitle2'] != "None"):
+        
+        # Prepare subtitle2
         dest_ws.cell(row=3, column=1).value = convert_footnote(row["ID"], row['subtitle2'])
         dest_ws.cell(row=3, column=1).font = Font(name='Arial', size=8)
+        # If subtitle2 is only a year value, then convert the year to int
+        is_year_only_sub2 = re.match(r'^(18|19|20|21)[0-9]{2}$', row['subtitle2'])
+        if is_year_only_sub2:
+          dest_ws.cell(row=3, column=1).value = int(convert_footnote(row["ID"], row['subtitle2']))
+          dest_ws.cell(row=3, column=1).alignment = Alignment(horizontal="left")
+        
         dest_ws.cell(row=6, column=1).value = "Quelle: " + row['source']
         dest_ws.cell(row=6, column=1).font = Font(name='Arial', size=8)
         title_toc = row['title_wfn'] + ", " + row['subtitle2_wfn']
 
+      #
+      # Worksheet without subtitle1 and subtitle2
+      #
+      if(row['subtitle1'] == "None" and row['subtitle2'] == "None"):
+        tolog("WARNING", "The subtitle1 and subtitle2 is empty in File " + source_xlsx + ". Please fill in one of them in the source file.")
+        title_toc = ""
+        
       # define the row, where the content starts
       row_start = 8      
       # Read the data from the source worksheet and write it to the destination worksheet
