@@ -325,12 +325,6 @@ def create_worksheet_expl(coll_ID, dest_file):
       source_wb = openpyxl.load_workbook(source_xlsx)
       source_ws = source_wb["Internet"]
       
-      print(source_ws)
-      
-      # Check if the content in the source file is not empty
-      if [cell.value for cells in source_ws.rows for cell in cells] == [None]:
-        tolog("WARNING", "The worksheet Internet is empty in File " + source_xlsx + ". Please fill in the content in the source file.")
-
       # Opening the destination xlsx and create the new worksheet
       dest_wb = openpyxl.load_workbook(dest_file)
       dest_ws = dest_wb.create_sheet("Erläuterungen")
@@ -373,12 +367,6 @@ def create_worksheets(coll_ID, dest_file):
       source_xlsx = row['directory'] + "/" + row['filename']
       source_wb = openpyxl.load_workbook(source_xlsx)
       source_ws = source_wb["Internet"]
-
-      print(source_ws)
-
-      # Check if the content in the source file is not empty
-      if [cell.value for cells in source_ws.rows for cell in cells] == "":
-        tolog("WARNING", "The worksheet Internet is empty in File " + source_xlsx + ". Please fill in the content in the source file.")
 
       # Opening the destination xlsx and create the new worksheet
       dest_wb = openpyxl.load_workbook(dest_file)

@@ -1,24 +1,29 @@
 {
 	"collection": [
 		{
-			"title": "Unterricht im Vorschul- und Schulalter",
-			"input_subpath": "15_01",
-			"output_filename": "Unterricht_im_Vorschul-_und_Schulalter.xlsx"
+			"title": "Meteorologie",
+			"input_subpath": "02_02",
+			"output_filename": "Meteorologie.xlsx"
 		},
 		{
-			"title": "Mittelschulen und Berufsbildung",
-			"input_subpath": "15_02",
-			"output_filename": "Mittelschulen_und_Berufsbildung.xlsx"
+			"title": "Erwerbstätigkeit",
+			"input_subpath": "03_02",
+			"output_filename": "Erwerbstaetigkeit.xlsx"
 		},
 		{
-			"title": "Jugend- und Erwachsenenbildung",
-			"input_subpath": "15_03",
-			"output_filename": "Jugend-_und_Erwachsenenbildung.xlsx"
+			"title": "Abfallentsorgung",
+			"input_subpath": "07_02",
+			"output_filename": "Abfallentsorgung.xlsx"
 		},
 		{
-			"title": "Hochschulen",
-			"input_subpath": "15_04",
-			"output_filename": "Hochschulen.xlsx"
+			"title": "Luftqualität",
+			"input_subpath": "07_03",
+			"output_filename": "Luftqualitaet.xlsx"
+		},
+		{
+			"title": "Strassenverkehrsunfälle",
+			"input_subpath": "11_02",
+			"output_filename": "Strassenverkehrsunfaelle.xlsx"
 		}
 	],
 	"path_input": "O:/Output/JB/Kap_Tabellensammlung/2022",
