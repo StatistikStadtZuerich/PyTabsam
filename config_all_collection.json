@@ -181,6 +181,6 @@
 			"output_filename": "Rechtsprechung.xlsx"
 		}
 	],
-	"path_input": "O:/Output/JB/Kap_Tabellensammlung/2022",
-	"path_output": "O:/Projekte/PyTabsam/Testfaelle-Output"
+	"path_input": "O:/Output/JAMA/Tabellen",
+	"path_output": "O:/Output/JAMA/Tabellensammlungen"
 }
