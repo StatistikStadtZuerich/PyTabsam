@@ -78,7 +78,7 @@ Das Python Package openpyxl kann «Bedingte Formatierungen» nicht verarbeiten. 
 ```
 C:\Users\sszXXX\AppData\Local\r-miniconda\envs\r-reticulate\lib\site-packages\openpyxl\worksheet\_reader.py:312: UserWarning: Conditional Formatting extension is not supported and will be removed
 ```
-**Behebung:** Die «Bedingte Formatierung» muss in den Quell-Dateien für alle Tabellenblätter entfernt werden. (Excel-Menü: Start - Bedingte Formatierung - Regeln verwalten). Falls die «Bedingte Formatierung» nicht entfernt werden soll, dann kann die Warnung auch ignoriert werden. Die Warnung hat keine negativen Auswirkungen auf die Erstellungen der Tabellensammlungen.
+**Behebung:** Die «Bedingte Formatierung» muss in den Quell-Dateien für alle Tabellenblätter entfernt werden. (Excel-Menü: Start - Formatvorlagen - Bedingte Formatierung - Regeln verwalten). Falls die «Bedingte Formatierung» nicht entfernt werden soll, dann kann die Warnung auch ignoriert werden. Die Warnung hat keine negativen Auswirkungen auf die Erstellungen der Tabellensammlungen.
 
 #### Parse Header/Footer 
 Das Python Package openpyxl kann Kopf- oder Fusszeilen auf Ebene Arbeitsmappe nicht verarbeiten. Falls in einer Quell-Datei Kopf- oder Fusszeilen enthalten sind, wird eine Warnung ausgegeben.
