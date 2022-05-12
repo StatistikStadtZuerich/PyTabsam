@@ -64,7 +64,7 @@ WARNING (2022-04-20 15:34:41): File T_12.01.01.2018.xlsm in O:/Output/JB/Kap_Tab
 **Behebung:** Prüfen Sie die Quelldatei und ob diese vollständig ist. Speichern Sie die Datei erneut ab und stellen Sie sicher, dass die neue Dateigrösse kleiner als 600KB ist. 
 
 ### System Warnungen
-Es gibt System Warnungen, welche am Schluss des Logs ausgegeben werden. 
+Es gibt System Warnungen, welche am Schluss des Logs ausgegeben werden und behoben oder ignoriert werden können.
 
 #### Veraltete copy Funktion
 In Abhängigkeit zum installierten openpyxl Packages kann eine Deprecation Warnung für die copy-Funktion ausgegeben werden. Die Warnung wird nicht bei allen Entwicklerinnen, welche openpyxl verwenden ausgegeben. Deshalb sind wir nicht sicher, welche Kombination von Packages diese Warnung erzeugt. Im Moment kann die Warnung einfach ignoriert werden.
