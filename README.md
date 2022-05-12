@@ -78,7 +78,7 @@ Das Python Package openpyxl kann «Bedingte Formatierungen» nicht verarbeiten. 
 ```
 C:\Users\sszXXX\AppData\Local\r-miniconda\envs\r-reticulate\lib\site-packages\openpyxl\worksheet\_reader.py:312: UserWarning: Conditional Formatting extension is not supported and will be removed
 ```
-**Behebung:** Die «Bedingte Formatierung» muss in den Quell-Dateien für alle Tabellenblätter entfernt werden. (Excel-Menü: Start - Bedingte Formatierung - Regeln verwalten). Falls die «Bedingte Formatierung» nicht entfernt werden möchten, dann kann die Warnung auch ignoriert werden. Die Warnung hat keine negativen Auswirkungen auf die Erstellungen der Tabellensammlungen.
+**Behebung:** Die «Bedingte Formatierung» muss in den Quell-Dateien für alle Tabellenblätter entfernt werden. (Excel-Menü: Start - Bedingte Formatierung - Regeln verwalten). Falls die «Bedingte Formatierung» nicht entfernt werden soll, dann kann die Warnung auch ignoriert werden. Die Warnung hat keine negativen Auswirkungen auf die Erstellungen der Tabellensammlungen.
 
 #### Parse Header/Footer 
 Das Python Package openpyxl kann Kopf- oder Fusszeilen auf Ebene Arbeitsmappe nicht verarbeiten. Falls in einer Quell-Datei Kopf- oder Fusszeilen enthalten sind, wird eine Warnung ausgegeben.
@@ -86,7 +86,7 @@ Das Python Package openpyxl kann Kopf- oder Fusszeilen auf Ebene Arbeitsmappe ni
 C:\Users\sszXXX\AppData\Local\r-miniconda\envs\r-reticulate\lib\site-packages\openpyxl\worksheet\header_footer.py:48: UserWarning: Cannot parse header or footer so it will be ignored
   warn("""Cannot parse header or footer so it will be ignored""")
 ```
-**Behebung:** Die Kopf- oder Fusszeilen müssen auf Ebene Arbeitsmappe entfernt werden (Excel-Menü: Datei - Informationen - Auf Probleme überprüfen - Dokument prüfen). Falls die Kopf- oder Fusszeilen nicht entfernt werden möchten, dann kann die Warnung auch ignoriert werden. Die Warnung hat keine negativen Auswirkungen auf die Erstellungen der Tabellensammlungen.
+**Behebung:** Die Kopf- oder Fusszeilen müssen auf Ebene Arbeitsmappe entfernt werden (Excel-Menü: Datei - Informationen - Auf Probleme überprüfen - Dokument prüfen). Falls die Kopf- oder Fusszeilen nicht entfernt werden sollen, dann kann die Warnung auch ignoriert werden. Die Warnung hat keine negativen Auswirkungen auf die Erstellungen der Tabellensammlungen.
 
 ## Installation
 
