@@ -121,24 +121,34 @@
 			"output_filename": "Gesundheitswesen.xlsx"
 		},
 		{
-			"title": "Unterricht im Vorschul- und Schulalter",
+			"title": "Kindertagesstätten und Kinder im Vorschulalter",
 			"input_subpath": "15_01",
-			"output_filename": "Unterricht_im_Vorschul-_und_Schulalter.xlsx"
+			"output_filename": "Kindertagesstaetten_und_Kinder_im_Vorschulalter.xlsx"
 		},
 		{
-			"title": "Mittelschulen und Berufsbildung",
+			"title": "Lehrverträge",
 			"input_subpath": "15_02",
-			"output_filename": "Mittelschulen_und_Berufsbildung.xlsx"
+			"output_filename": "Lehrvertraege.xlsx"
 		},
 		{
-			"title": "Jugend- und Erwachsenenbildung",
+			"title": "Volkshochschule",
 			"input_subpath": "15_03",
-			"output_filename": "Jugend-_und_Erwachsenenbildung.xlsx"
+			"output_filename": "Volkshochschule.xlsx"
 		},
 		{
 			"title": "Hochschulen",
 			"input_subpath": "15_04",
 			"output_filename": "Hochschulen.xlsx"
+		},
+		{
+			"title": "Entwicklung der Schülerinnen- und Schülerzahlen, Privatschulen, Sonderschulen und Horte",
+			"input_subpath": "15_05",
+			"output_filename": "Entwicklung_der_Schuelerinnen-_und_Schuelerzahlen_Privatschulen_Sonderschulen_und_Horte.xlsx"
+		},
+		{
+			"title": "Schülerinnen und Schüler der städtischen Kindergärten und Volksschulen von 1991 bis 2007",
+			"input_subpath": "15_06",
+			"output_filename": "Schuelerinnen_und_Schueler_der_staedtischen_Kindergaerten_und_Volksschulen_von_1991_bis_2007.xlsx"
 		},
 		{
 			"title": "Opernhaus, Theater, Konzerte und Kinos",
